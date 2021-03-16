@@ -3,41 +3,62 @@ package geometries;
 import primitives.Point3D;
 import primitives.Vector;
 
-public class Plane implements Geometry  {
-    Point3D q0;
-    Vector normal;
+public class Plane implements Geometry {
+    final Point3D _q0;
+    final Vector _normal;
+
+    public Plane(Point3D p0, Vector normal) {
+        _q0 = p0;
+        _normal = normal.normalized();
+    }
 
     /**
-     * c-tors
-     * @param q0
-     * @param normal
+     * Constructor of Plane from 3 points on its surface
+     * the points are ordered from right to left
+     * forming an arc in right direction
+     *
+     * @param p1
+     * @param p2
+     * @param p3
      */
-    public Plane(Point3D q0, Vector normal) {
-        this.q0 = q0;
-        this.normal = normal;
+    public Plane(Point3D p1, Point3D p2, Point3D p3) {
+        _q0 = p1;
+
+        Vector U = p2.subtract(p1);
+        Vector V = p3.subtract(p1);
+
+        Vector N = U.crossProduct(V);
+
+        N.normalize();
+
+        //right hand rule
+        _normal = N;
     }
 
-    public Plane(Point3D q0 ,Point3D q1, Point3D q2) {
-        this.q0 = q0;
-        this.normal = null;
-    }
 
     //getters
     public Point3D getQ0() {
-        return q0;
+        return _q0;
     }
 
+
+    /**
+     * @deprecated  use {@link #getNormal(Point3D)} with null as parameter.
+     * @return normal
+     */
+    @Deprecated
     public Vector getNormal() {
-        return normal;
+        return _normal;
     }
 
     /**
-     * override func get normal
-     * @param point3D
-     * @return null
+     *
+     * @param point3D dummy point not use for flat geometries
+     *              should be assigned null value
+     * @return normal to the plane
      */
     @Override
     public Vector getNormal(Point3D point3D) {
-        return null;
+        return _normal;
     }
 }
