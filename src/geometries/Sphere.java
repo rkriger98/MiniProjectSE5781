@@ -1,12 +1,18 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
 
-public class Sphere implements Geometry  {
-    Point3D _center;
-    double _radius;
+
+public class Sphere extends RadialGeometry implements Geometry  {
+    final protected Point3D _center;
+
+    public Point3D getCenter() {
+        return _center;
+    }
 
     /**
      * c-tor
@@ -14,7 +20,7 @@ public class Sphere implements Geometry  {
      * @param radius
      */
     public Sphere(double radius,Point3D center) {
-        _radius = radius;
+        super(radius);
         _center = center;
     }
 
@@ -30,5 +36,10 @@ public class Sphere implements Geometry  {
         }
         Vector vector = p.subtract(_center);
         return vector.normalize();
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
     }
 }
