@@ -7,7 +7,10 @@ import  static primitives.Point3D.PointZERO;
 public class Vector {
     Point3D _head;
 
-    //c-tors
+    /**
+     * primary used c-tor
+     * @param head point3d
+     */
     public Vector(Point3D head) {
         if (head.equals(PointZERO)) {
             throw new IllegalArgumentException("head cannot be Point(0,0,0)");
@@ -15,21 +18,23 @@ public class Vector {
         _head = head;
     }
 
+    /**
+     * c-tor for x, y, z coordinates
+     * @param x coordinate for x axis
+     * @param y coordinate for y axis
+     * @param z coordinate for z axis
+     */
     public Vector(double x, double y, double z) {
-        Point3D head = new Point3D(x, y, z);
-        if (head.equals(PointZERO)) {
-            throw new IllegalArgumentException("head cannot be Point(0,0,0)");
-        }
-        _head = head;
+      this(new Point3D(x,y,z));
+    }
+
+    public Vector(Coordinate x, Coordinate y, Coordinate z) {
+        this(new Point3D(x,y,z));
     }
 
     //setter and getter
     public Point3D getHead() {
         return new Point3D(_head._x, _head._y, _head._z);
-    }
-
-    public void setHead(Point3D head) {
-        _head = head;
     }
 
     /**
@@ -113,10 +118,10 @@ public class Vector {
      */
     public Vector normalize() {
         double length = this.length();
-        setHead(new Point3D(
+        _head = new Point3D(
                 (this._head._x.coord) / length,
                 (this._head._y.coord) / length,
-                (this._head._z.coord) / length));
+                (this._head._z.coord) / length);
         return this;
     }
 
