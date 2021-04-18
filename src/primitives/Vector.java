@@ -32,10 +32,10 @@ public class Vector {
         this(new Point3D(x,y,z));
     }
 
-    //setter and getter
+    //getter
     public Point3D getHead() {
         return new Point3D(_head._x, _head._y, _head._z);
-    }
+   }
 
     /**
      *
