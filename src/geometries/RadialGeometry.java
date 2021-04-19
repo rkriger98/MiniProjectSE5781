@@ -1,15 +1,18 @@
 package geometries;
 
-/**
- * //TODO Racheli will  put comments here
- */
 public abstract class RadialGeometry {
-    final protected double _radius;
+    protected final double _radius;
 
     public RadialGeometry(double radius) {
+        if(radius <= 0){
+            throw new IllegalArgumentException(("radius cannot be <= 0"));
+        }
         _radius = radius;
     }
 
+    /**
+     * @return getRadius double
+     */
     public double getRadius() {
         return _radius;
     }

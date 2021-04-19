@@ -35,6 +35,10 @@ public class Tube extends RadialGeometry implements Geometry  {
         }
         Point3D O = P0.add(v.scale(t));
 
+        if(O.equals(P)){
+            throw new IllegalArgumentException("point cannot be the reference point of the tube");
+        }
+
         Vector n = P.subtract(O);
         return n.normalize();
     }
