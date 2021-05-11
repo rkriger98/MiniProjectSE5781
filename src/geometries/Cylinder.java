@@ -1,14 +1,22 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
 
-public class Cylinder implements Geometry {
+import java.util.List;
 
-    double height;
+public class Cylinder extends Tube implements Geometry {
+    double _height;
+
+    public Cylinder(double radius, Ray axisRay, double height) {
+        super(radius, axisRay);
+        _height = height;
+    }
 
     /**
      * override func get normal
+     *
      * @param point3D
      * @return null
      */
@@ -17,4 +25,18 @@ public class Cylinder implements Geometry {
         return null;
     }
 
+    @Override
+    public String toString() {
+        return "Cylinder{" +
+                "_height=" + _height +
+                ", _radius=" + _radius +
+                ", _axisRay=" + _axisRay +
+                '}';
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return super.findIntersections(ray);
+    }
 }
+
