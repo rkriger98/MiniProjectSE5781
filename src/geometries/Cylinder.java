@@ -25,6 +25,10 @@ public class Cylinder extends Tube implements Geometry {
         return null;
     }
 
+    /**
+     * toString method
+     * @return
+     */
     @Override
     public String toString() {
         return "Cylinder{" +
@@ -33,6 +37,7 @@ public class Cylinder extends Tube implements Geometry {
                 ", _axisRay=" + _axisRay +
                 '}';
     }
+
 
     @Override
     public List<Point3D> findIntersections(Ray ray) {
