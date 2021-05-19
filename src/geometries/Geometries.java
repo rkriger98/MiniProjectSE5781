@@ -22,10 +22,13 @@ public class Geometries implements Intersectable {
         add(intersectables);
     }
 
-    private void add(Intersectable... intersectables){
+    public void add(Intersectable... intersectables) {
 //        for (Intersectable item: intersectables) {
 //              _intersectables.add(item);
 //        }
+        if (_intersectables == null) {
+            _intersectables = new LinkedList<>();
+        }
         _intersectables.addAll(Arrays.asList(intersectables));
     }
 

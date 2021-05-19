@@ -67,7 +67,14 @@ public class Camera {
         return this;
     }
 
-
+    /**
+     * Constructing a ray through a pixel
+     * @param nX
+     * @param nY
+     * @param j
+     * @param i
+     * @return the ray
+     */
     public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
         Point3D Pc = _p0.add(_vTo.scale(_distance));
 
