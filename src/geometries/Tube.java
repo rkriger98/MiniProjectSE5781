@@ -8,7 +8,7 @@ import java.util.List;
 
 import static primitives.Util.isZero;
 
-public class Tube extends RadialGeometry implements Geometry  {
+public class Tube extends RadialGeometry {
 
   final Ray _axisRay;
 
@@ -44,7 +44,7 @@ public class Tube extends RadialGeometry implements Geometry  {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
         return null;
     }
 }

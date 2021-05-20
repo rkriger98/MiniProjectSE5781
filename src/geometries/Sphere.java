@@ -10,7 +10,7 @@ import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 
-public class Sphere extends RadialGeometry implements Geometry {
+public class Sphere extends RadialGeometry{
 
     final protected Point3D _center;
 
@@ -56,9 +56,9 @@ public class Sphere extends RadialGeometry implements Geometry {
                 '}';
     }
 
-    @Override
-    public List<Point3D> findIntersections(Ray ray) {
 
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
         Point3D P0 = ray.getP0();
         Vector v = ray.getDir();
 
@@ -83,16 +83,16 @@ public class Sphere extends RadialGeometry implements Geometry {
             Point3D P1 = P0.add(v.scale(t1));
             Point3D P2 = P0.add(v.scale(t2));
 
-            return List.of(P1,P2);
+            return List.of(new GeoPoint(this,P1),new GeoPoint(this,P2));
         }
         else if (t1 > 0){
             Point3D P1 = P0.add(v.scale(t1));
-            return List.of(P1);
+            return List.of(new GeoPoint(this,P1));
         }
         else if (t2 >= 0){
             Point3D P2 = P0.add(v.scale(t2));
-            return List.of(P2);
+            return List.of(new GeoPoint(this,P2));
         }
-            return null;
+        return null;
     }
 }

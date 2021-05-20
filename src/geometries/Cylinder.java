@@ -6,7 +6,7 @@ import primitives.Vector;
 
 import java.util.List;
 
-public class Cylinder extends Tube implements Geometry {
+public class Cylinder extends Tube{
     double _height;
 
     public Cylinder(double radius, Ray axisRay, double height) {
