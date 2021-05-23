@@ -10,9 +10,10 @@ import java.util.MissingResourceException;
 
 public class Render {
     private ImageWriter _imageWriter;
-    private Scene _scene;
+    private Scene _scene = null;
     private Camera _camera;
     private RayTracerBase _rayTracerBase;
+
 
     /**
      * Builder set functions
@@ -46,7 +47,7 @@ public class Render {
      */
     public void renderImage() {
         try {
-            if (_imageWriter == null || _scene == null || _camera == null || _rayTracerBase == null) {
+            if (_imageWriter == null || /*_scene == null ||*/ _camera == null || _rayTracerBase == null) {
                 throw new MissingFormatArgumentException("missing resource");
             }
             int nX = _imageWriter.getNx();
