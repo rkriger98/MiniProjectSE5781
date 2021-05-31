@@ -54,3 +54,4 @@ class RayTest {
         assertEquals(point3DS.get(4),ray.findClosestPoint(point3DS),"supposed to be 4");
     }
 }
+
