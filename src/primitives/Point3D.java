@@ -40,6 +40,20 @@ public class Point3D {
 
     }
 
+    /**
+     * c-tor
+     * @param point3D
+     */
+    public Point3D(Point3D point3D) {
+
+        _x = point3D._x;
+        _y = point3D._y;
+        _z = point3D._z;
+
+
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

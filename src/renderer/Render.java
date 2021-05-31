@@ -10,7 +10,7 @@ import java.util.MissingResourceException;
 
 public class Render {
     private ImageWriter _imageWriter;
-    private Scene _scene;
+   // private Scene _scene;
     private Camera _camera;
     private RayTracerBase _rayTracerBase;
 
@@ -24,10 +24,10 @@ public class Render {
         return this;
     }
 
-    public Render setScene(Scene scene) {
+   /* public Render setScene(Scene scene) {
         _scene = scene;
         return this;
-    }
+    }*/
 
     public Render setCamera(Camera camera) {
         _camera = camera;
@@ -46,7 +46,7 @@ public class Render {
      */
     public void renderImage() {
         try {
-            if (_imageWriter == null || _scene == null || _camera == null || _rayTracerBase == null) {
+            if (_imageWriter == null /*|| _scene == null*/ || _camera == null || _rayTracerBase == null) {
                 throw new MissingFormatArgumentException("missing resource");
             }
             int nX = _imageWriter.getNx();
@@ -59,8 +59,8 @@ public class Render {
             }
         }
         catch(MissingResourceException e){
-           throw new UnsupportedOperationException("Not implemented yet");
-            }
+            throw new UnsupportedOperationException("Not implemented yet");
+        }
     }
 
     /**

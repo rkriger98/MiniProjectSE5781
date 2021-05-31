@@ -13,6 +13,8 @@ import java.util.List;
 public class Geometries implements Intersectable {
     List<Intersectable> _intersectables = null;
 
+
+
     public Geometries() {
         _intersectables = new LinkedList<>();
     }
@@ -32,20 +34,20 @@ public class Geometries implements Intersectable {
         _intersectables.addAll(Arrays.asList(intersectables));
     }
 
+
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
-        List<Point3D> result = null;
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
+        List<GeoPoint> result = null;
 
         for (Intersectable item : _intersectables) {
-            List<Point3D> itemIntesectionPoints = item.findIntersections(ray);
-            if (itemIntesectionPoints != null) {
+            List<GeoPoint> itemIntersectionsPoints = item.findGeoIntersections(ray);
+            if (itemIntersectionsPoints != null) {
                 if (result == null) {
                     result = new LinkedList<>();
                 }
-                result.addAll(itemIntesectionPoints);
+                result.addAll(itemIntersectionsPoints);
             }
         }
-
         return result;
     }
 }

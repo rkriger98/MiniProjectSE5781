@@ -20,12 +20,12 @@ class RayTest {
         point3DS.add(new Point3D(-20,60,50));
         point3DS.add(new Point3D(0,0,-100));
 
-        assertEquals(point3DS.get(2),ray.getClosestPoint(point3DS),"supposed to be 2");
+        assertEquals(point3DS.get(2),ray.findClosestPoint(point3DS),"supposed to be 2");
     }
 
     @Test
     void getClosestPointBVA1() {
-        assertNull(ray.getClosestPoint(null),"supposed to be null");
+        assertNull(ray.findClosestPoint(null),"supposed to be null");
     }
 
     @Test
@@ -38,7 +38,7 @@ class RayTest {
         point3DS.add(new Point3D(-20,60,50));
         point3DS.add(new Point3D(0,0,-100));
 
-        assertEquals(point3DS.get(0),ray.getClosestPoint(point3DS),"supposed to be 0");
+        assertEquals(point3DS.get(0),ray.findClosestPoint(point3DS),"supposed to be 0");
     }
 
     @Test
@@ -51,6 +51,6 @@ class RayTest {
         point3DS.add(new Point3D(0,0,-100));
         point3DS.add(new Point3D(0,5,1));
 
-        assertEquals(point3DS.get(4),ray.getClosestPoint(point3DS),"supposed to be 4");
+        assertEquals(point3DS.get(4),ray.findClosestPoint(point3DS),"supposed to be 4");
     }
 }

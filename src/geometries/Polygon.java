@@ -10,7 +10,7 @@ import static primitives.Util.*;
  *
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
     /**
      * List of polygon's vertices
      */
@@ -52,8 +52,8 @@ public class Polygon implements Geometry {
         if (vertices.length == 3)
             return; // no need for more tests for a Triangle
 
-       // Vector n = plane.getNormal();
-          Vector n = _plane.getNormal(null);
+        // Vector n = plane.getNormal();
+        Vector n = _plane.getNormal(null);
 
         // Subtracting any subsequent points will throw an IllegalArgumentException
         // because of Zero Vector if they are in the same point
@@ -88,10 +88,11 @@ public class Polygon implements Geometry {
         return _plane.getNormal(null);
     }
 
-    @Override
-    public List<Point3D> findIntersections(Ray ray) {
 
-        List<Point3D> result = _plane.findIntersections(ray);
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
+        List<GeoPoint> result = List.of(new GeoPoint(this, _plane.getQ0()));
+        // _plane.findGeoIntersections(ray);
 
         if (result == null) {
             return result;

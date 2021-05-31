@@ -2,8 +2,13 @@ package elements;
 
 import primitives.Color;
 
-public class AmbientLight {
-    private final Color _intensity;
+public class AmbientLight extends Light {
+    /**
+     * TODO
+     */
+    public AmbientLight() {
+        super(Color.BLACK);
+    }
 
     /**
      * parameter constructor
@@ -11,14 +16,8 @@ public class AmbientLight {
      * @param kA
      */
     public AmbientLight(Color iA, double kA) {
-        _intensity = iA.scale(kA);
+        super(iA.scale(kA));
     }
 
-    /**
-     * getter
-     * @return
-     */
-    public Color getIntensity() {
-        return _intensity;
-    }
+
 }
