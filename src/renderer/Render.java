@@ -9,10 +9,10 @@ import java.util.MissingFormatArgumentException;
 import java.util.MissingResourceException;
 
 public class Render {
-    private ImageWriter _imageWriter;
-   // private Scene _scene;
-    private Camera _camera;
-    private RayTracerBase _rayTracerBase;
+    private ImageWriter _imageWriter=null;
+   //private Scene _scene;
+    private Camera _camera=null;
+    private RayTracerBase _rayTracerBase=null;
 
     /**
      * Builder set functions

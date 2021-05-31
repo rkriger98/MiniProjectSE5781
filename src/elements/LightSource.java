@@ -5,20 +5,20 @@ import primitives.Point3D;
 import primitives.Vector;
 
 /**
- * todo
+ * interface LightSource
  */
 public interface LightSource  {
     /**
-     * todo
+     * The get function to get the point's color
      * @param p
-     * @return
+     * @return color
      */
     public Color getIntensity(Point3D p);
 
     /**
-     * todo
+     * The get function to get the direction's color
      * @param p
-     * @return
+     * @return direction
      */
     public Vector getL(Point3D p);
 

@@ -30,13 +30,13 @@ public class Triangle extends Polygon{
      * @return string
      */
 
-    @Override
+   /* @Override
     public String toString() {
         return "Triangle{" +
-                "vertices=" + _vertices +
+                "vertices=" + vertices +
                 ", plane=" + _plane +
                 '}';
-    }
+    }*/
 
 
 }

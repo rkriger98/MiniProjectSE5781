@@ -5,42 +5,39 @@ import primitives.Point3D;
 import primitives.Vector;
 
 /**
- *
+ *class DirectionalLight to apply directional lighting
  */
-public class DirectionalLight extends Light implements LightSource {
-   private final Vector _dir;
+public class DirectionalLight extends Light implements LightSource{
+    final private Vector _direction;
 
     /**
-     * c-tor
-     *
+     * constructor
      * @param intensity
+     * @param direction
      */
-    public DirectionalLight(Color intensity,Vector dir) {
+    public DirectionalLight(Color intensity, Vector direction) {
         super(intensity);
-        _dir=dir.normalized();
+        _direction = direction.normalized();
     }
 
     /**
-     *
+     * The get function to get the direction of the lighting The get function to get the point's color
      * @param p
      * @return color
      */
     @Override
     public Color getIntensity(Point3D p) {
-        return  _intensity;
+        return _intensity;
     }
 
     /**
-     *
+     * The get function to get the direction of the lighting
      * @param p
-     * @return direction of the light
+     * @return direction
      */
     @Override
     public Vector getL(Point3D p) {
-        return _dir;
+        return _direction.normalized();
     }
+
 }
-
-
-
-

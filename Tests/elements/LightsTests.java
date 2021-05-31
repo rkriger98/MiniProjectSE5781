@@ -1,9 +1,6 @@
 package elements;
-
 import org.junit.jupiter.api.Test;
-import primitives.Point3D;
-import primitives.Vector;
-
+import elements.*;
 import geometries.*;
 import primitives.*;
 import renderer.*;
@@ -80,6 +77,7 @@ public class LightsTests {
         ImageWriter imageWriter = new ImageWriter("lightSphereSpot", 500, 500);
         Render render = new Render()//
                 .setImageWriter(imageWriter) //
+
                 .setCamera(camera1) //
                 .setRayTracer(new RayTracerBasic(scene1));
         render.renderImage();
@@ -114,13 +112,21 @@ public class LightsTests {
         scene2.lights.add(new PointLight(new Color(500, 250, 250), new Point3D(10, -10, -130)) //
                 .setKl(0.0005).setKq(0.0005));
 
+
+
         ImageWriter imageWriter = new ImageWriter("lightTrianglesPoint", 500, 500);
         Render render = new Render()//
                 .setImageWriter(imageWriter) //
-                .setCamera(camera2) //
+                .setCamera(camera2)//
                 .setRayTracer(new RayTracerBasic(scene2));
         render.renderImage();
         render.writeToImage();
+
+
+
+
+
+
     }
 
     /**
@@ -140,8 +146,10 @@ public class LightsTests {
                 .setRayTracer(new RayTracerBasic(scene2));
         render.renderImage();
         render.writeToImage();
+
+
+
+
     }
 
 }
-
-

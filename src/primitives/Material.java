@@ -1,49 +1,44 @@
 package primitives;
 
 /**
- * todo
+ * class Material
  */
 public class Material {
+    public double kD=0;
+    public double kS=0;
+    public int nShininess=0;
 
-    public double _Kd = 0;
-    public double _Ks = 0;
-    public int _nShininess = 0;
 
-    /*public Material(double kD, double kS, int nShininess) {
-        this._Kd = kD;
-        this._Ks = kS;
-        this._nShininess = nShininess;
-    }*/
 
-    public Material() {
-
+    /**
+     * setter
+     * @param kD
+     * @return material
+     */
+    public Material setKd(double kD) {
+        this.kD = kD;
+        return this;
     }
 
-
-
-    public Material setKd(double _Kd) {
-        this._Kd = _Kd;
+    /**
+     * setter
+     * @param kS
+     * @return material
+     */
+    public Material setKs(double kS) {
+        this.kS = kS;
         return  this;
     }
-    public Material setKs(double _Ks) {
-        this._Ks = _Ks;
-        return this;
-    }
-    public Material setShininess(int _nShininess) {
-        this._nShininess = _nShininess;
-        return this;
-    }
 
-    public double getKd() {
-        return _Kd;
-    }
-    public double getKs() {
-        return _Ks;
-    }
-    public int getShininess() {
-        return _nShininess;
+    /**
+     * setter
+     * @param nShininess
+     * @return material
+     */
+    public Material setShininess(int nShininess) {
+        this.nShininess = nShininess;
+        return this;
     }
 
 
 }
-

@@ -25,7 +25,7 @@ public class Vector {
      * @param z coordinate for z axis
      */
     public Vector(double x, double y, double z) {
-      this(new Point3D(x,y,z));
+        this(new Point3D(x,y,z));
     }
 
     public Vector(Coordinate x, Coordinate y, Coordinate z) {
@@ -35,7 +35,7 @@ public class Vector {
     //getter
     public Point3D getHead() {
         return new Point3D(_head._x, _head._y, _head._z);
-   }
+    }
 
     /**
      *

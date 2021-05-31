@@ -4,13 +4,14 @@ import primitives.Color;
 
 public class AmbientLight extends Light {
     /**
-     * TODO
+     * default c-tor
      */
     public AmbientLight() {
         super(Color.BLACK);
     }
 
     /**
+     * c-tor
      * parameter constructor
      * @param iA
      * @param kA

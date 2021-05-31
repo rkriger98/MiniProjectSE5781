@@ -4,90 +4,65 @@ import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
-import java.awt.geom.Arc2D;
-
 /**
- *
+ * kC-The fixed lighting coefficient
+ * KL-Linear lighting coefficient
+ * KQ-The square light coefficient
  */
-public class PointLight extends Light implements LightSource {
+public class PointLight extends Light implements LightSource{
     private final Point3D _position;
-    private double _Kc=1;
-    private double _Kl=0;
-    private double _Kq=0;
+    private double _Kc =1;
+    private double _Kl =0;
+    private double _Kq =0;
     /**
-     * c-tor
-     *
+     * constructor
      * @param intensity
+     * @param position
      */
-    protected PointLight(Color intensity, Point3D position, double Kc, double Kl , double Kq) {
+    public PointLight(Color intensity, Point3D position) {
         super(intensity);
-        _position = new Point3D(position);
-        _Kc =_Kc;
-        _Kl = Kl;
-        _Kq = Kq;
+        _position = position;
     }
-
-
-    protected PointLight(Color intensity, Point3D position) {
-        super(intensity);
-        _position = new Point3D(position);
-
-    }
-
-
-
-
 
     /**
-     *Models omni-directional point source (such as a bulb)
-     * Intensity (I0)
-     * Position (PL)
-     * Factors (kc,ki,kq) for attenuation with distance (d)
+     *  The get function to get the point's color
      * @param p
-     * @return color
+     * @return
      */
     @Override
     public Color getIntensity(Point3D p) {
-
-        //double dsquared = p.distanceSquared(_position);
-        //double d = p.distance(_position);
-        double d = _position.distance(p);
-        double attenuation=1d/(_Kc+ _Kl* d + _Kq* d*d);
+        double d=_position.distance(p);
+        double attenuation=1d/(_Kc + _Kl *d+ _Kq *d*d);
         return _intensity.scale(attenuation);
-
-
     }
 
     /**
-     *
+     * The get function to get the direction of the lighting
      * @param p
-     * @return the direction of the light
+     * @return
      */
     @Override
     public Vector getL(Point3D p) {
-
-            return p.subtract(this._position).normalized();
+        return p.subtract(_position).normalized();
     }
-
 
     /**
-     *
+     * builders
+     * @param kl and Kq and Kc
+     * @return PointLight
      */
-    public PointLight setKc(double _Kc) {
-        this._Kc = _Kc;
+    public PointLight setKl(double kl) {
+        _Kl = kl;
         return this;
     }
 
-    public PointLight setKl(double _Kl) {
-        this._Kl = _Kl;
+    public PointLight setKq(double kq) {
+        _Kq = kq;
         return this;
     }
 
-    public PointLight setKq(double _Kq) {
-        this._Kq = _Kq;
+    public PointLight setKc(double kc) {
+        _Kc = kc;
         return this;
     }
-
-
-
 }

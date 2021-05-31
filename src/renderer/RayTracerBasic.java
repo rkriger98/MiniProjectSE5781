@@ -31,39 +31,41 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     /**
+     * Fill  environmental lighting color of the scene
      * returns the color
-     * @param point
+     * @param
      * @return
      */
-    private Color calcColor(GeoPoint point,Ray ray) {
+    private Color calcColor(GeoPoint goPoint,Ray ray) {
 
-       Color emissionColor=point.geometry.getEmission();
-        Color basicColor=_scene.ambientLight.getIntensity().add(emissionColor);
-        return basicColor.add(calcLocalEffects(point,ray));
-
+        return _scene.ambientLight.getIntensity()
+                .add(goPoint.geometry.getEmission())
+// add calculated light contribution from all light sources)
+                .add(calcLocalEffects(goPoint, ray));
     }
 
 
     /**
      *TODO
-     * @param intersection
+     * @param
      * @param ray
      * @return
      */
-    private Color calcLocalEffects(GeoPoint intersection, Ray ray) {
+    private Color calcLocalEffects(GeoPoint geoPoint, Ray ray) {
         Vector v = ray.getDir ();
-        Vector n = intersection.geometry.getNormal(intersection.point);
+        Vector n = geoPoint.geometry.getNormal(geoPoint.point);
         double nv = alignZero(n.dotProduct(v));
         if (nv == 0) return Color.BLACK;
-        Material material = intersection.geometry.getMaterial();
-        int nShininess = material.getShininess();
-        double kd = material.getKd(), ks = material.getKs();
+        Material material = geoPoint.geometry.getMaterial();
+        int nShininess = material.nShininess;
+        double kd = material.kD;
+        double ks = material.kS;
         Color color = Color.BLACK;
         for (LightSource lightSource : _scene.lights) {
-            Vector l = lightSource.getL(intersection.point);
+            Vector l = lightSource.getL(geoPoint.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) { // sign(nl) == sing(nv)
-                Color lightIntensity = lightSource.getIntensity(intersection.point);
+                Color lightIntensity = lightSource.getIntensity(geoPoint.point);
                 color = color.add(calcDiffusive(kd, l, n, lightIntensity),
                         calcSpecular(ks, l, n, v, nShininess, lightIntensity));
             }
@@ -71,8 +73,9 @@ public class RayTracerBasic extends RayTracerBase {
         return color;
     }
 
+
     /**
-     * TODO
+     * The Phong Reflectance Model
      * @param ks
      * @param l
      * @param n
@@ -93,13 +96,17 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     /**
-     * TODO
+     * The Phong Reflectance Model
+     * @param kd
+     * @param l
+     * @param n
+     * @param lightIntensity
      * @return
      */
     private Color calcDiffusive(double kd, Vector l, Vector n, Color lightIntensity)
     {
-        double lN=Math.abs(l.dotProduct(n));
-        return lightIntensity.scale(kd*lN);
+        double ln=Math.abs(l.dotProduct(n));
+        return lightIntensity.scale(kd*ln);
     }
 
 }

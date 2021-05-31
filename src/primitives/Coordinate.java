@@ -26,6 +26,10 @@ public final class Coordinate {
         this.coord = alignZero(coord);
     }
 
+    public Coordinate(Coordinate coordinate) {
+        this.coord = coordinate.coord;
+    }
+
     /*************** Admin *****************/
     @Override
     public boolean equals(Object obj) {

@@ -4,48 +4,28 @@ import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
-import static primitives.Util.isZero;
-
-/**
- *
- */
-public class SpotLight extends PointLight implements LightSource {
-
-    private final Vector _dir;
-
+public class SpotLight extends PointLight{
+    private final Vector _direction;
     /**
-     * c-tor
-     *
-     * @param intensity
+     * constructor
+     *  @param intensity
      * @param position
+     * @param direction
      */
-    protected SpotLight(Color intensity, Point3D position,Vector dir) {
+    public SpotLight(Color intensity, Point3D position, Vector direction) {
         super(intensity, position);
-        this._dir=dir.normalized();
-
+        _direction = direction.normalized();
     }
 
-
-
-
     /**
-     * Models point light source with direction (such as a luxo lamp)
-     * Intensity (I0)
-     * Position (PL)
-     * Direction dir (Vector) - normalized
-     * Attenuation factors
+     *  The get function to get the point's color
      * @param p
-     * @return
+     * @return color
      */
     @Override
     public Color getIntensity(Point3D p) {
-
-        double cosTetha=_dir.dotProduct(getL(p));
+        double cosTetha=_direction.dotProduct(getL(p));
         Color intensity=super.getIntensity(p);
-        return (intensity.scale(Math.max(0,cosTetha)));
+        return intensity.scale(Math.max(0,cosTetha));
     }
-
-
-
-
 }

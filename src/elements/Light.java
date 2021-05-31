@@ -4,7 +4,7 @@ package elements;
 import primitives.Color;
 
 /**
- * TODO
+ * class light
  */
 abstract class Light {
     protected final Color _intensity;
