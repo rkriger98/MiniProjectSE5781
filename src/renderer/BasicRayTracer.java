@@ -22,9 +22,12 @@ public class BasicRayTracer extends BaseRayTracer {
     }
 
     /**
-     * Returns color to each point
+     * Find the intersection and the scene’s geometries
+     * If there is no intersection, return the background color
+     * Find the closest intersection point
+     * Find the color of the intersection point (Ambient light)
      * @param ray
-     * @return
+     * @return color
      */
     @Override
     public Color traceRay(Ray ray) {
@@ -39,7 +42,7 @@ public class BasicRayTracer extends BaseRayTracer {
     }
 
     /**
-     * Fill environmental lighting color of the scene
+     * call to the recursive func calcColor
      * returns the color
      * @param
      * @return
@@ -51,7 +54,7 @@ public class BasicRayTracer extends BaseRayTracer {
 
 
     /**
-     *
+     *Fill environmental lighting color of the scene by call to calcLocalEffects and calcGlobalEffects
      * @param intersection
      * @param ray
      * @param level
@@ -67,7 +70,8 @@ public class BasicRayTracer extends BaseRayTracer {
 
 
     /**
-     *TODO
+     * The Phong Reflectance Model
+     * 𝒌𝑨 ∙ 𝑰𝑨 + 𝑰𝑬 +∑(𝒌𝑫∙|𝒍𝒊 ∙ 𝒏| + 𝒌𝑺 (∙ 𝒎𝒂𝒙 (𝟎, −𝒗 ∙ 𝒓))∙𝒏𝒔𝒉)∙ 𝑰𝑳𝒊 ∙𝑺𝒊
      * @param
      * @param ray
      * @return
@@ -107,7 +111,7 @@ public class BasicRayTracer extends BaseRayTracer {
 
 
     /**
-     * The Phong Reflectance Model
+     *  calculates the specular light of the specific light
      * @param ks
      * @param l
      * @param n
@@ -128,7 +132,7 @@ public class BasicRayTracer extends BaseRayTracer {
     }
 
     /**
-     * The Phong Reflectance Model
+     * calculates the diffusion of the light on the touched area
      * @param kd
      * @param l
      * @param n
@@ -142,8 +146,9 @@ public class BasicRayTracer extends BaseRayTracer {
     }
 
     /**
+     * Calculate shadow at point by by finding all the point that this ray meets in the scene,
+     * and if there are no points then there is a shadow
      *
-     *  במקום מכיוון התאורה לגוף גוף לכיווון התאורה
      * @param l
      * @param n
      * @param geopoint
@@ -188,7 +193,15 @@ public class BasicRayTracer extends BaseRayTracer {
         return intersections == null;
     }
 
-
+    /**
+     * The Phong Reflectance Model
+     * 𝒌𝑹 ∙ 𝑰𝑹 + 𝒌𝑻 ∙𝑰𝑻
+     * @param gp
+     * @param v
+     * @param level
+     * @param k
+     * @return
+     */
 
     private Color calcGlobalEffects(GeoPoint gp, Vector v, int level, double k) {
         Color color = Color.BLACK; Vector n = gp.geometry.getNormal(gp.point);
@@ -203,12 +216,18 @@ public class BasicRayTracer extends BaseRayTracer {
         return color;
     }
 
+    private Color calcGlobalEffect(Ray ray, int level, double kx, double kkx) {
+        GeoPoint gp = findClosestIntersection (ray);
+        return (gp == null ? _scene.background : calcColor(gp, ray, level-1, kkx)
+        ).scale(kx);
+    }
+
     /**
-     *
+     *constructs the refraction ray
      * @param point
      * @param v
      * @param n
-     * @return
+     * @return ray
      */
     private Ray constructRefractedRay(Point3D point, Vector v, Vector n) {
         return new Ray(point,v,n);
@@ -229,18 +248,20 @@ public class BasicRayTracer extends BaseRayTracer {
 
     }
 
-    private Color calcGlobalEffect(Ray ray, int level, double kx, double kkx) {
-        GeoPoint gp = findClosestIntersection (ray);
-        return (gp == null ? _scene.background : calcColor(gp, ray, level-1, kkx)
-        ).scale(kx);
-    }
 
+
+    /**
+     * finding the intersection that this ray meets in the scene
+     * @param ray
+     * @return GeoPoint
+     */
     private GeoPoint findClosestIntersection(Ray ray) {
         List<GeoPoint> pointList=_scene.geometries.findGeoIntersections(ray);
         return ray.findClosestGeoPoint(pointList);
     }
 
     /**
+     *Calculate partial shadow at point.
      *
      * @param light
      * @param l
