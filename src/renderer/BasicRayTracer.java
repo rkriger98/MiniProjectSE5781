@@ -71,6 +71,7 @@ public class BasicRayTracer extends BaseRayTracer {
 
     /**
      * The Phong Reflectance Model
+     *calls the funcs calcDiffusive and calcSpecular
      * 𝒌𝑨 ∙ 𝑰𝑨 + 𝑰𝑬 +∑(𝒌𝑫∙|𝒍𝒊 ∙ 𝒏| + 𝒌𝑺 (∙ 𝒎𝒂𝒙 (𝟎, −𝒗 ∙ 𝒓))∙𝒏𝒔𝒉)∙ 𝑰𝑳𝒊 ∙𝑺𝒊
      * @param
      * @param ray
@@ -111,7 +112,7 @@ public class BasicRayTracer extends BaseRayTracer {
 
 
     /**
-     *  calculates the specular light of the specific light
+     * calculates the specular light on geometry
      * @param ks
      * @param l
      * @param n
@@ -145,6 +146,7 @@ public class BasicRayTracer extends BaseRayTracer {
         return lightIntensity.scale(kd*ln);
     }
 
+
     /**
      * Calculate shadow at point by by finding all the point that this ray meets in the scene,
      * and if there are no points then there is a shadow
@@ -158,7 +160,7 @@ public class BasicRayTracer extends BaseRayTracer {
         Vector lightDirection = l.scale(-1); // from point to light source
 
         Ray lightRay = new Ray(geopoint.point,lightDirection,n);
-        List<GeoPoint> intersections = _scene.geometries.findGeoIntersections(lightRay);//בודק אם מישהו חותך אותו סימן שאני לא מוצל
+        List<GeoPoint> intersections = _scene.geometries.findGeoIntersections(lightRay);
         if(intersections == null){
             return true;
         }
@@ -182,8 +184,6 @@ public class BasicRayTracer extends BaseRayTracer {
      */
     private boolean unshaded2(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
         Vector lightDirection = l.scale(-1); // from point to light source
-//        Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : - DELTA);
-//        Point3D point = geopoint.point.add(delta);
         Ray lightRay = new Ray(geopoint.point,lightDirection,n);
 
         double dis=light.getDistance(geopoint.point);
@@ -194,7 +194,9 @@ public class BasicRayTracer extends BaseRayTracer {
     }
 
     /**
-     * The Phong Reflectance Model
+     *
+     * The Phong Reflectance  Model
+     * Calculate the  Reflection and transparency by calling for funcs constructReflectedRay and  constructRefractedRay
      * 𝒌𝑹 ∙ 𝑰𝑹 + 𝒌𝑻 ∙𝑰𝑻
      * @param gp
      * @param v
@@ -204,7 +206,8 @@ public class BasicRayTracer extends BaseRayTracer {
      */
 
     private Color calcGlobalEffects(GeoPoint gp, Vector v, int level, double k) {
-        Color color = Color.BLACK; Vector n = gp.geometry.getNormal(gp.point);
+        Color color = Color.BLACK;
+        Vector n = gp.geometry.getNormal(gp.point);
         Material material = gp.geometry.getMaterial();
         double kkr = k * material.kR;
         if (kkr > MIN_CALC_COLOR_K)
@@ -216,6 +219,14 @@ public class BasicRayTracer extends BaseRayTracer {
         return color;
     }
 
+    /**
+     *called by calcGlobalEffect for Calculating the Reflection and transparency
+     * @param ray
+     * @param level
+     * @param kx
+     * @param kkx
+     * @return
+     */
     private Color calcGlobalEffect(Ray ray, int level, double kx, double kkx) {
         GeoPoint gp = findClosestIntersection (ray);
         return (gp == null ? _scene.background : calcColor(gp, ray, level-1, kkx)
@@ -261,8 +272,7 @@ public class BasicRayTracer extends BaseRayTracer {
     }
 
     /**
-     *Calculate partial shadow at point.
-     *
+     *Calculate the shadowing
      * @param light
      * @param l
      * @param n

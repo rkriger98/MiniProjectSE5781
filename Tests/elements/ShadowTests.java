@@ -185,8 +185,8 @@ public class ShadowTests {
     public void picture()
     {
 
-        Camera camera=new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0))
-                .setViewPlaneSize(200, 200).setDistance(1000);
+        Camera camera=new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, 1, 0))
+                .setViewPlaneSize(250, 250).setDistance(1000);
         //scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
 
 
@@ -207,7 +207,7 @@ public class ShadowTests {
         );
 
 
-        scene.lights.add(new DirectionalLight(new Color(java.awt.Color.WHITE), new Vector(0, 0, 1)));//
+        scene.lights.add(new DirectionalLight(new Color(java.awt.Color.WHITE), new Vector(1,-0.5,1)));//
                // .setKl(4E-4).setKq(2E-5));
 
         ImageWriter imageWriter = new ImageWriter("picture", 600, 600);
@@ -228,7 +228,7 @@ public class ShadowTests {
     public void pictureMove()
     {
 
-        Camera camera=new Camera(new Point3D(300, -10, -1800), new Vector(-0.1, 0, 0.9), new Vector(0, -1, 0))
+        Camera camera=new Camera(new Point3D(200, -10, -1500), new Vector(-0.1, 0, 0.9), new Vector(0, -1, 0))
                 .setViewPlaneSize(200, 200).setDistance(1000);
         //scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
 
@@ -250,8 +250,7 @@ public class ShadowTests {
         );
 
 
-        scene.lights.add(new SpotLight(new Color(java.awt.Color.WHITE), new Point3D(110, -110, -120), new Vector(0, 0, 1)) //
-                .setKl(4E-4).setKq(2E-5));
+        scene.lights.add(new DirectionalLight(new Color(java.awt.Color.WHITE), new Vector(1,-0.5,1)));//
 
         ImageWriter imageWriter = new ImageWriter("pictureMove", 600, 600);
         Render render = new Render() //
