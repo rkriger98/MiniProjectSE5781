@@ -1,6 +1,5 @@
 package elements;
 import org.junit.jupiter.api.Test;
-import elements.*;
 import geometries.*;
 import primitives.*;
 import renderer.*;
@@ -42,7 +41,7 @@ public class LightsTests {
         Render render = new Render()//
                 .setImageWriter(imageWriter) //
                 .setCamera(camera1) //
-                .setRayTracer(new RayTracerBasic(scene1));
+                .setRayTracer(new BasicRayTracer(scene1));
         render.renderImage();
         render.writeToImage();
     }
@@ -60,7 +59,7 @@ public class LightsTests {
         Render render = new Render()//
                 .setImageWriter(imageWriter) //
                 .setCamera(camera1) //
-                .setRayTracer(new RayTracerBasic(scene1));
+                .setRayTracer(new BasicRayTracer(scene1));
         render.renderImage();
         render.writeToImage();
     }
@@ -79,7 +78,7 @@ public class LightsTests {
                 .setImageWriter(imageWriter) //
 
                 .setCamera(camera1) //
-                .setRayTracer(new RayTracerBasic(scene1));
+                .setRayTracer(new BasicRayTracer(scene1));
         render.renderImage();
         render.writeToImage();
     }
@@ -97,7 +96,7 @@ public class LightsTests {
         Render render = new Render()//
                 .setImageWriter(imageWriter) //
                 .setCamera(camera2) //
-                .setRayTracer(new RayTracerBasic(scene2));
+                .setRayTracer(new BasicRayTracer(scene2));
         render.renderImage();
         render.writeToImage();
     }
@@ -118,7 +117,7 @@ public class LightsTests {
         Render render = new Render()//
                 .setImageWriter(imageWriter) //
                 .setCamera(camera2)//
-                .setRayTracer(new RayTracerBasic(scene2));
+                .setRayTracer(new BasicRayTracer(scene2));
         render.renderImage();
         render.writeToImage();
 
@@ -143,7 +142,7 @@ public class LightsTests {
         Render render = new Render()//
                 .setImageWriter(imageWriter) //
                 .setCamera(camera2) //
-                .setRayTracer(new RayTracerBasic(scene2));
+                .setRayTracer(new BasicRayTracer(scene2));
         render.renderImage();
         render.writeToImage();
 

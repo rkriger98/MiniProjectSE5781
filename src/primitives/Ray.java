@@ -7,13 +7,19 @@ import java.util.List;
 import static primitives.Util.isZero;
 
 
+
 public class Ray {
-    final Point3D _p0;
-    final Vector _dir;
+    private static final double DELTA = 0.1;
+
+    private final Point3D _p0;
+    private final Vector _dir;
+
+
 
     /**
      * c-tor
-     * @param p0 point3d
+     *
+     * @param p0  point3d
      * @param dir vector
      */
     public Ray(Point3D p0, Vector dir) {
@@ -21,8 +27,17 @@ public class Ray {
         _dir = dir.normalized();
     }
 
+    public Ray(Point3D point, Vector dir, Vector n) {
+        Vector delta = n.scale(n.dotProduct(dir) > 0 ? DELTA : -DELTA);
+        Point3D p = point.add(delta);
+        _p0 = p;
+        _dir = dir.normalized();
+
+    }
+
+
+
     /**
-     *
      * @return point po
      */
     public Point3D getP0() {
@@ -30,7 +45,6 @@ public class Ray {
     }
 
     /**
-     *
      * @return vector Direction
      */
     public Vector getDir() {
@@ -38,18 +52,17 @@ public class Ray {
     }
 
     /**
-     *
      * @param delta
      * @return point po * scale
      */
-    public Point3D getPoint(double delta ){
-        if (isZero(delta)){
+    public Point3D getPoint(double delta) {
+        if (isZero(delta)) {
             return _p0;
         }
         return _p0.add(_dir.scale(delta));
     }
 
-    public GeoPoint findClosestGeoPoint(List<GeoPoint> points){
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> points) {
         GeoPoint minPoint = null;
         if (points == null) {
             return null;
@@ -66,7 +79,6 @@ public class Ray {
     }
 
     /**
-     *
      * @param points
      * @return the closest point to _p0
      */
@@ -87,7 +99,6 @@ public class Ray {
     }
 
     /**
-     *
      * @param o
      * @return true if its equals
      */
@@ -100,7 +111,6 @@ public class Ray {
     }
 
     /**
-     *
      * @return ray toString
      */
     @Override

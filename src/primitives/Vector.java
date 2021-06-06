@@ -12,8 +12,12 @@ public class Vector {
      * @param head point3d
      */
     public Vector(Point3D head) {
+
         if (head.equals(PointZERO)) {
             throw new IllegalArgumentException("head cannot be Point(0,0,0)");
+          //
+
+
         }
         _head = head;
     }
@@ -25,7 +29,7 @@ public class Vector {
      * @param z coordinate for z axis
      */
     public Vector(double x, double y, double z) {
-        this(new Point3D(x,y,z));
+        this(new Point3D( x,y,z));
     }
 
     public Vector(Coordinate x, Coordinate y, Coordinate z) {
@@ -67,6 +71,9 @@ public class Vector {
      * @return double a scalar with a vector
      */
     public Vector scale(double scalar) {
+        if(scalar * this._head._x.coord==0&&scalar * this._head._y.coord==0&&scalar * this._head._z.coord==0){
+            int wt;
+        }
         return new Vector(
                 scalar * this._head._x.coord,
                 scalar * this._head._y.coord,

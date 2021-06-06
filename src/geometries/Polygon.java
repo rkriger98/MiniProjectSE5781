@@ -90,8 +90,9 @@ public class Polygon extends Geometry {
 
 
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
-        List<GeoPoint> result = _plane.findGeoIntersections(ray);
+    public List<GeoPoint> findGeoIntersections(Ray ray,double maxDis) {
+        try{
+        List<GeoPoint> result = _plane.findGeoIntersections(ray,maxDis);
         if (result == null)
             return null;
 
@@ -113,5 +114,8 @@ public class Polygon extends Geometry {
             if (positive != (sign > 0)) return null;
         }
         return List.of(new GeoPoint(this , result.get(0).point));
+        }catch (Exception e){
+            return null;
+        }
     }
 }

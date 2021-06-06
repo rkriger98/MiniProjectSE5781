@@ -61,7 +61,7 @@ public class Plane extends Geometry {
     /**
      *
      * @param point3D dummy point not use for flat geometries
-     *              should be assigned null value
+     *  should be assigned null value
      * @return normal to the plane
      */
     @Override
@@ -70,43 +70,50 @@ public class Plane extends Geometry {
     }
 
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
-        Point3D P0 = ray.getP0();
-        Vector v = ray.getDir();
+    public List<GeoPoint> findGeoIntersections(Ray ray,double maxDis) {
+        try {
+            Point3D P0 = ray.getP0();
+            Vector v = ray.getDir();
 
-        Vector n = _normal;
+            Vector n = _normal;
 
-        if(_q0.equals(P0)){
-            return  null;
-        }
+            if (_q0.equals(P0)) {
+                return null;
+            }
 
-        Vector P0_Q0 = _q0.subtract(P0);
+            Vector P0_Q0 = _q0.subtract(P0);
 
-        //numerator
-        double nP0Q0  = alignZero(n.dotProduct(P0_Q0));
+            //numerator
+            double nP0Q0 = alignZero(n.dotProduct(P0_Q0));
 
-        //
-        if (isZero(nP0Q0 )){
+            //
+            if (isZero(nP0Q0)) {
+                return null;
+            }
+
+            //denominator
+            double nv = alignZero(n.dotProduct(v));
+
+            // ray is lying in the plane axis
+            if (isZero(nv)) {
+                return null;
+            }
+
+            double t = alignZero(nP0Q0 / nv);
+
+            if (t <= 0) {
+                return null;
+            }
+
+            if (alignZero(t - maxDis) <= 0) {
+                Point3D p = ray.getPoint(t);
+                return List.of(new GeoPoint(this, p));
+            }
+        }catch (Exception e){
             return null;
         }
 
-        //denominator
-        double nv = alignZero(n.dotProduct(v));
-
-        // ray is lying in the plane axis
-        if(isZero(nv)){
-            return null;
-        }
-
-        double  t = alignZero(nP0Q0  / nv);
-
-        if (t <=0){
-            return  null;
-        }
-
-        Point3D point = ray.getPoint(t);
-
-        return List.of(new GeoPoint(this,point));
+      return null;
     }
 
     /**

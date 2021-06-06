@@ -31,6 +31,7 @@ public interface Intersectable {
             return geometry.equals(geoPoint.geometry) && point.equals(geoPoint.point);
         }
 
+
     }
 
     default List<Point3D> findIntersections(Ray ray) {
@@ -49,5 +50,14 @@ public interface Intersectable {
      * @param ray the ray pointing to
      * @return intersection points
      */
-    List <GeoPoint> findGeoIntersections(Ray ray);
+    default List <GeoPoint> findGeoIntersections(Ray ray){
+        return findGeoIntersections(ray,Double.POSITIVE_INFINITY);
+    }
+
+    /**
+     * todo
+     * @param ray
+     * @return
+     */
+    List <GeoPoint> findGeoIntersections(Ray ray,double maxDis);
 }

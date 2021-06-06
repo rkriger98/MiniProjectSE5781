@@ -3,7 +3,6 @@ package renderer;
 import elements.Camera;
 import primitives.Color;
 import primitives.Ray;
-import scene.Scene;
 
 import java.util.MissingFormatArgumentException;
 import java.util.MissingResourceException;
@@ -12,7 +11,7 @@ public class Render {
     private ImageWriter _imageWriter=null;
    //private Scene _scene;
     private Camera _camera=null;
-    private RayTracerBase _rayTracerBase=null;
+    private BaseRayTracer _rayTracerBase=null;
 
     /**
      * Builder set functions
@@ -24,17 +23,14 @@ public class Render {
         return this;
     }
 
-   /* public Render setScene(Scene scene) {
-        _scene = scene;
-        return this;
-    }*/
+
 
     public Render setCamera(Camera camera) {
         _camera = camera;
         return this;
     }
 
-    public Render setRayTracer(RayTracerBase rayTracer) {
+    public Render setRayTracer(BaseRayTracer rayTracer) {
         _rayTracerBase = rayTracer;
         return this;
 
