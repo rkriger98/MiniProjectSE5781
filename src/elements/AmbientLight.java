@@ -3,8 +3,15 @@ package elements;
 import primitives.Color;
 
 public class AmbientLight extends Light {
+    /**
+     * default c-tor
+     */
+    public AmbientLight() {
+        super(Color.BLACK);
+    }
 
     /**
+     * c-tor
      * parameter constructor
      * @param iA
      * @param kA
@@ -13,10 +20,5 @@ public class AmbientLight extends Light {
         super(iA.scale(kA));
     }
 
-    /**
-     * default constructor
-     */
-    public AmbientLight() {
-        super(Color.BLACK);
-    }
+
 }

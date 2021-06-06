@@ -3,17 +3,15 @@ package renderer;
 import elements.Camera;
 import primitives.Color;
 import primitives.Ray;
-import scene.Scene;
 
 import java.util.MissingFormatArgumentException;
 import java.util.MissingResourceException;
 
 public class Render {
-    private ImageWriter _imageWriter;
-    private Scene _scene = null;
-    private Camera _camera;
-    private RayTracerBase _rayTracerBase;
-
+    private ImageWriter _imageWriter=null;
+   //private Scene _scene;
+    private Camera _camera=null;
+    private BaseRayTracer _rayTracerBase=null;
 
     /**
      * Builder set functions
@@ -25,17 +23,14 @@ public class Render {
         return this;
     }
 
-    public Render setScene(Scene scene) {
-        _scene = scene;
-        return this;
-    }
+
 
     public Render setCamera(Camera camera) {
         _camera = camera;
         return this;
     }
 
-    public Render setRayTracer(RayTracerBase rayTracer) {
+    public Render setRayTracer(BaseRayTracer rayTracer) {
         _rayTracerBase = rayTracer;
         return this;
 
@@ -47,7 +42,7 @@ public class Render {
      */
     public void renderImage() {
         try {
-            if (_imageWriter == null || /*_scene == null ||*/ _camera == null || _rayTracerBase == null) {
+            if (_imageWriter == null /*|| _scene == null*/ || _camera == null || _rayTracerBase == null) {
                 throw new MissingFormatArgumentException("missing resource");
             }
             int nX = _imageWriter.getNx();
@@ -60,8 +55,8 @@ public class Render {
             }
         }
         catch(MissingResourceException e){
-           throw new UnsupportedOperationException("Not implemented yet");
-            }
+            throw new UnsupportedOperationException("Not implemented yet");
+        }
     }
 
     /**

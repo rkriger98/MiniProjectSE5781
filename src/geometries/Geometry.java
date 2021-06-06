@@ -10,21 +10,13 @@ import primitives.Vector;
  */
 
 public abstract class Geometry implements Intersectable{
-
     protected Color _emission = Color.BLACK;
-    private Material _material;
 
     public abstract Vector getNormal(Point3D point3D);
+    private Material  _material=new Material();
 
     /**
-     * default c-tor
-     */
-    public Geometry() {
-        _material = new Material();
-    }
-
-    /**
-     * Setter builder functions
+     * todo
      * @param emission
      * @return
      */
@@ -39,7 +31,7 @@ public abstract class Geometry implements Intersectable{
     }
 
     /**
-     * getters
+     * todo
      * @return
      */
     public Color getEmission() {
@@ -50,4 +42,3 @@ public abstract class Geometry implements Intersectable{
         return _material;
     }
 }
-

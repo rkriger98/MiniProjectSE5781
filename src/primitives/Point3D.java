@@ -40,11 +40,6 @@ public class Point3D {
 
     }
 
-    public Point3D(Point3D position) {
-        _x = position._x;
-        _y = position._y;
-        _z = position._z;
-    }
 
 
     @Override

@@ -1,26 +1,66 @@
 package primitives;
 
+/**
+ * class Material
+ */
 public class Material {
-    public double _kD = 0d, _kS = 0d;
-    public double _nShininess = 1d;
+    public double kD=0;
+    public double kS=0;
+    public int nShininess=0;
+    public double kT=0;
+    public double kR=0;
+
+
 
     /**
-     * Build setters methods
+     * setter
      * @param kD
-     * @return
+     * @return material
      */
-    public Material setkD(double kD) {
-        _kD = kD;
+    public Material setKd(double kD) {
+        this.kD = kD;
         return this;
     }
 
-    public Material setkS(double kS) {
-        _kS = kS;
+    /**
+     * setter
+     * @param kS
+     * @return material
+     */
+    public Material setKs(double kS) {
+        this.kS = kS;
+        return  this;
+    }
+
+    /**
+     * setter
+     * @param nShininess
+     * @return material
+     */
+    public Material setShininess(int nShininess) {
+        this.nShininess = nShininess;
         return this;
     }
 
-    public Material setnShininess(double nShininess) {
-        _nShininess = nShininess;
+    /**
+     * setter
+     * @param kT
+     * @return material
+     */
+    public Material setKt(double kT) {
+        this.kT = kT;
         return this;
     }
+
+    /**
+     * setter
+     * @param kR
+     * @return material
+     */
+    public Material setKr(double kR) {
+        this.kR = kR;
+        return  this;
+    }
+
+
 }

@@ -44,4 +44,3 @@ public class Cylinder extends Tube{
         return super.findIntersections(ray);
     }
 }
-

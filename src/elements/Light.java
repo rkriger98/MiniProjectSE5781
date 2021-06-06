@@ -1,27 +1,25 @@
 package elements;
 
+
 import primitives.Color;
 
 /**
- * Light class
+ * class light
  */
-class Light {
-
-    protected Color _intensity;
+abstract class Light {
+    protected final Color _intensity;
 
     /**
      * c-tor
-     *
      * @param intensity
      */
     protected Light(Color intensity) {
-        _intensity = intensity;
+        this._intensity = intensity;
     }
 
     /**
      * getter
-     *
-     * @return _intensity
+     * @return intensity
      */
     public Color getIntensity() {
         return _intensity;

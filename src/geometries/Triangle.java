@@ -21,8 +21,8 @@ public class Triangle extends Polygon{
      * @return intersection point
      */
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
-        return super.findGeoIntersections(ray);
+    public List<GeoPoint> findGeoIntersections(Ray ray,double maxDis) {
+        return super.findGeoIntersections(ray, maxDis);
     }
 
     /**
@@ -30,13 +30,13 @@ public class Triangle extends Polygon{
      * @return string
      */
 
-    @Override
+   /* @Override
     public String toString() {
         return "Triangle{" +
-                "vertices=" + _vertices +
+                "vertices=" + vertices +
                 ", plane=" + _plane +
                 '}';
-    }
+    }*/
 
 
 }

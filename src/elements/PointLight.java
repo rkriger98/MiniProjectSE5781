@@ -4,86 +4,79 @@ import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
-public class PointLight extends Light implements LightSource {
-
-    private Point3D _position;
-    private double _kC = 1d, _kL = 0d, _kQ = 0d;
-
+/**
+ * kC-The fixed lighting coefficient
+ * KL-Linear lighting coefficient
+ * KQ-The square light coefficient
+ */
+public class PointLight extends Light implements LightSource{
+    private final Point3D _position;
+    private double _Kc =1;
+    private double _Kl =0;
+    private double _Kq =0;
     /**
-     * parameter c-tor
-     *
+     * constructor
      * @param intensity
      * @param position
-     * @param kC
-     * @param kL
-     * @param kQ
      */
-    public PointLight(Color intensity, Point3D position, double kC , double kL, double kQ) {
-        super(intensity);
-        _position = new Point3D(position);
-        _kC = kC;
-        _kL = kL;
-        _kQ = kQ;
-    }
-
     public PointLight(Color intensity, Point3D position) {
         super(intensity);
         _position = position;
     }
 
     /**
+     *  The get function to get the point's color
      * @param p
-     * @return intensity
+     * @return
      */
     @Override
     public Color getIntensity(Point3D p) {
-        double factor = _kC;
-        double distance;
-        try {
-            distance = _position.distance(p);
-            factor += _kL * distance + _kQ * distance * distance;
-        } catch (Exception exception) {}
-        return _intensity.scale(1 / factor);
+       double d=_position.distance(p);
+        double attenuation=1d/(_Kc + _Kl *d+ _Kq *d*d);
+        return _intensity.scale(attenuation);
+        /*double d = getDistance(p);
+        double dsquared = d*d;
+
+        return (_intensity.reduce(_Kc + _Kl *d+ _Kq * dsquared));*/
     }
 
     /**
-     * get override func
-     *
+     * The get function to get the direction of the lighting
      * @param p
-     * @return the direction of the lighting
+     * @return
      */
     @Override
     public Vector getL(Point3D p) {
-//        if (p.equals(_position)) {
-//            return null;
-//        }
-//        return p.subtract(_position).normalize();
-        try {
-            return _position.subtract(p).normalized();//p.subtract(_position).normalized();
-        }
-        catch (Exception exception){
-            return null;
-        }
+        return p.subtract(_position).normalized();
     }
 
     /**
-     * Build function setters
      *
-     * @param kC
+     * @param p
      * @return
      */
-    public PointLight setkC(double kC) {
-        _kC = kC;
+    @Override
+    public double getDistance(Point3D p) {
+       return  _position.distance(p);
+    }
+
+    /**
+     * builders
+     * @param kl and Kq and Kc
+     * @return PointLight
+     */
+    public PointLight setKl(double kl) {
+        _Kl = kl;
         return this;
     }
 
-    public PointLight setkL(double kL) {
-        _kL = kL;
+    public PointLight setKq(double kq) {
+        _Kq = kq;
         return this;
     }
 
-    public PointLight setkQ(double kQ) {
-        _kQ = kQ;
+    public PointLight setKc(double kc) {
+        _Kc = kc;
         return this;
     }
 }

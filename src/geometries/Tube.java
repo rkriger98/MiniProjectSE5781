@@ -10,16 +10,16 @@ import static primitives.Util.isZero;
 
 public class Tube extends RadialGeometry {
 
-  final Ray _axisRay;
+    final Ray _axisRay;
 
     public Tube(double radius,Ray axisRay) {
         super(radius);
         _axisRay = axisRay;
-     }
+    }
 
     /**
      * override func get normal
-     * @param P point "looking" at tube
+     * @param p point "looking" at tube
      * @return null
      */
     @Override
@@ -31,7 +31,7 @@ public class Tube extends RadialGeometry {
         double t = v.dotProduct(P0_P);
 
         if(isZero(t)) {
-            return P0_P;
+            return P0_P.normalized();
         }
         Point3D O = P0.add(v.scale(t));
 
@@ -44,7 +44,7 @@ public class Tube extends RadialGeometry {
     }
 
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersections(Ray ray,double maxDis) {
         return null;
     }
 }

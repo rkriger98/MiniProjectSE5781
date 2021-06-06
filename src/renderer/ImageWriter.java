@@ -87,6 +87,7 @@ public class ImageWriter {
      * @param color  final color of the pixel
      */
     public void writePixel(int xIndex, int yIndex, Color color) {
+        //color=new Color(java.awt.Color.BLACK);
         image.setRGB(xIndex, yIndex, color.getColor().getRGB());
     }
 

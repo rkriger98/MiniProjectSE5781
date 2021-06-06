@@ -4,7 +4,7 @@ import primitives.Color;
 import primitives.Ray;
 import scene.Scene;
 
-public abstract class RayTracerBase {
+public abstract class BaseRayTracer {
 
     protected Scene _scene;
 
@@ -12,7 +12,10 @@ public abstract class RayTracerBase {
      * constructor
      * @param scene
      */
-    public RayTracerBase(Scene scene) {
+    public BaseRayTracer(Scene scene) {
+        if(scene==null){
+            throw new IllegalArgumentException("scene can not be null");
+        }
         _scene = scene;
     }
 

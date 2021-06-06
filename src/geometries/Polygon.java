@@ -52,8 +52,8 @@ public class Polygon extends Geometry {
         if (vertices.length == 3)
             return; // no need for more tests for a Triangle
 
-       // Vector n = plane.getNormal();
-          Vector n = _plane.getNormal(null);
+        // Vector n = plane.getNormal();
+        Vector n = _plane.getNormal(null);
 
         // Subtracting any subsequent points will throw an IllegalArgumentException
         // because of Zero Vector if they are in the same point
@@ -90,46 +90,32 @@ public class Polygon extends Geometry {
 
 
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
-        List<GeoPoint> result = List.of(new GeoPoint(this, _plane.getQ0()));
-        // _plane.findGeoIntersections(ray);
+    public List<GeoPoint> findGeoIntersections(Ray ray,double maxDis) {
+        try{
+        List<GeoPoint> result = _plane.findGeoIntersections(ray,maxDis);
+        if (result == null)
+            return null;
 
-        if (result == null) {
-            return result;
-        }
-
-        Point3D P0 = ray.getP0();
+        Point3D p0 = ray.getP0();
         Vector v = ray.getDir();
 
-        Point3D P1 = _vertices.get(1);
-        Point3D P2 = _vertices.get(0);
-
-        Vector v1 = P1.subtract(P0);
-        Vector v2 = P2.subtract(P0);
-
-        double sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
-
-        if (isZero(sign)) {
+        Vector v1 = _vertices.get(1).subtract(p0);
+        Vector v2 = _vertices.get(0).subtract(p0);
+        double sign = v.dotProduct(v1.crossProduct(v2));
+        if (isZero(sign))
             return null;
-        }
-
         boolean positive = sign > 0;
 
-        //iterate through all vertices of the polygon
         for (int i = _vertices.size() - 1; i > 0; --i) {
             v1 = v2;
-            v2 = _vertices.get(i).subtract(P0);
-
+            v2 = _vertices.get(i).subtract(p0);
             sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
-            if (isZero(sign)) {
-                return null;
-            }
-
-            if (positive != (sign > 0)) {
-                return null;
-            }
+            if (isZero(sign)) return null;
+            if (positive != (sign > 0)) return null;
         }
-
-        return result;
+        return List.of(new GeoPoint(this , result.get(0).point));
+        }catch (Exception e){
+            return null;
+        }
     }
 }
