@@ -71,7 +71,6 @@ public class ShadowTests {
         render.writeToImage();
     }
 
-
     @Test
     public void sphereTriangleInitial3() {
         scene.geometries.add( //
@@ -120,8 +119,6 @@ public class ShadowTests {
         render.writeToImage();
     }
 
-
-
     @Test
     public void sphereTriangleInitial5() {
         scene.geometries.add( //
@@ -143,10 +140,6 @@ public class ShadowTests {
         render.renderImage();
         render.writeToImage();
     }
-
-
-
-
 
     /**
      * Produce a picture of a two triangles lighted by a spot light with a Sphere
@@ -175,93 +168,6 @@ public class ShadowTests {
                 .setRayTracer(new BasicRayTracer(scene));
         render.renderImage();
         render.writeToImage();
-    }
-
-
-
-
-
-    @Test
-    public void picture()
-    {
-
-        Camera camera=new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, 1, 0))
-                .setViewPlaneSize(250, 250).setDistance(1000);
-        //scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
-
-
-        scene.geometries.add(
-
-                new Sphere(30, new Point3D(-50, -60, 45)) //
-                        .setEmission(new Color(0,0,20)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100).setKt(0.5)), //
-                new Sphere(30, new Point3D(0, 0, 20)) //
-                        .setEmission(new Color(0,20,0)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100).setKt(0.5)), //
-                new Sphere(30, new Point3D(50, 60, 45)) //
-                        .setEmission(new Color(20,0,0)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100).setKt(0.5)), //
-                new Plane(new Point3D(0, 0, 120), new Vector(0, 0, 1)) //
-                        .setEmission(new Color(java.awt.Color.BLACK)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(1200).setKt(0.8)) //
-        );
-
-
-        scene.lights.add(new DirectionalLight(new Color(java.awt.Color.WHITE), new Vector(1,-0.5,1)));//
-               // .setKl(4E-4).setKq(2E-5));
-
-        ImageWriter imageWriter = new ImageWriter("picture", 600, 600);
-        Render render = new Render() //
-                .setImageWriter(imageWriter) //
-                .setCamera(camera) //
-                .setRayTracer(new BasicRayTracer(scene));
-
-        render.renderImage();
-        render.writeToImage();
-
-
-    }
-
-
-
-    @Test
-    public void pictureMove()
-    {
-
-        Camera camera=new Camera(new Point3D(200, -10, -1500), new Vector(-0.1, 0, 0.9), new Vector(0, -1, 0))
-                .setViewPlaneSize(200, 200).setDistance(1000);
-        //scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
-
-
-        scene.geometries.add(
-
-                new Sphere(30, new Point3D(-50, -60, 45)) //
-                        .setEmission(new Color(0,0,20)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100).setKt(0.5)), //
-                new Sphere(30, new Point3D(0, 0, 20)) //
-                        .setEmission(new Color(0,20,0)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100).setKt(0.5)), //
-                new Sphere(30, new Point3D(50, 60, 45)) //
-                        .setEmission(new Color(20,0,0)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100).setKt(0.5)), //
-                new Plane(new Point3D(0, 0, 120), new Vector(0, 0, 1)) //
-                        .setEmission(new Color(java.awt.Color.BLACK)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(1200).setKt(0.8)) //
-        );
-
-
-        scene.lights.add(new DirectionalLight(new Color(java.awt.Color.WHITE), new Vector(1,-0.5,1)));//
-
-        ImageWriter imageWriter = new ImageWriter("pictureMove", 600, 600);
-        Render render = new Render() //
-                .setImageWriter(imageWriter) //
-                .setCamera(camera) //
-                .setRayTracer(new BasicRayTracer(scene));
-
-        render.renderImage();
-        render.writeToImage();
-
-
     }
 }
 
