@@ -2,10 +2,10 @@ package primitives;
 
 import geometries.Intersectable.GeoPoint;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static primitives.Util.isZero;
-
 
 
 public class Ray {
@@ -13,7 +13,6 @@ public class Ray {
 
     private final Point3D _p0;
     private final Vector _dir;
-
 
 
     /**
@@ -34,7 +33,6 @@ public class Ray {
         _dir = dir.normalized();
 
     }
-
 
 
     /**
@@ -97,6 +95,32 @@ public class Ray {
         }
         return minPoint;
     }
+
+    /**
+     * function that creates a beam of rays in random positions. all the rays point to one point
+     *
+     * @param center    - the center of the base of the beam
+     * @param target    - the target point that all rays point to
+     * @param rad       - the radius of the base of the beam
+     * @param numOfRays - number of rays that will be created
+     * @param vRight    - a vector orthogonal to the original ray
+     * @param vUp       -  a vector orthogonal to the original ray and the right vector
+     * @return - a list that contains all the new rays
+     */
+    public static List<Ray> rayRandomBeam(Point3D center, Point3D target, double rad, int numOfRays, Vector vRight, Vector vUp) {
+        List<Ray> result = new LinkedList<>();
+        for (int k = 0; k < numOfRays; k++) {
+            double x = Math.random() * 2 * rad + rad;
+            double cosX = Math.sqrt(rad - x * x);
+            double y = Math.random() * 2 * cosX + cosX;
+            Point3D pC = center.add(vRight.scale(x));//a point on view plane around the pixel
+            pC = pC.add(vUp.scale(y));
+            Ray focalRay = new Ray(pC, target.subtract(pC));
+            result.add(focalRay);
+        }
+        return result;
+    }
+
 
     /**
      * @param o

@@ -4,6 +4,7 @@ import elements.Camera;
 import primitives.Color;
 import primitives.Ray;
 
+import java.util.List;
 import java.util.MissingFormatArgumentException;
 import java.util.MissingResourceException;
 
@@ -58,6 +59,30 @@ public class Render {
             throw new UnsupportedOperationException("Not implemented yet");
         }
     }
+
+    public void renderImage2() {
+        try {
+            if (_imageWriter == null /*|| _scene == null*/ || _camera == null || _rayTracerBase == null) {
+                throw new MissingFormatArgumentException("missing resource");
+            }
+            int nX = _imageWriter.getNx();
+            int nY = _imageWriter.getNy();
+            final double dist = _scene.getDistance();
+            final double width = imageWriter.getWidth();
+            final double height = imageWriter.getHeight();
+            for (int i = 0; i < nY; i++) {
+                for (int j = 0; j < nX; j++) {
+                    List<Ray> ray = _camera.constructRayThroughPixel(nX, nY, j, i,);
+                    _imageWriter.writePixel(j, i, _rayTracerBase.traceRay(ray));
+                }
+            }
+        }
+        catch(MissingResourceException e){
+            throw new UnsupportedOperationException("Not implemented yet");
+        }
+    }
+
+
 
     /**
      * Activates the function writePixel for each point

@@ -4,6 +4,9 @@ import primitives.Point3D;
 import primitives.Vector;
 import primitives.Ray;
 
+import java.util.List;
+
+import static primitives.Ray.rayRandomBeam;
 import static primitives.Util.isZero;
 
 public class Camera {
@@ -15,6 +18,15 @@ public class Camera {
     private double _width;
     private double _height;
     private double _distance;
+
+    /*
+     *  focalDistance - the distance of the  focus.
+     *  aperture      - the radius of the aperture.
+     *  numOfRays     - number of rays that will be in the beam from every pixels area (in addition to the original ray).
+     */
+    private double _focalDistance;
+    private double _aperture;
+    private int _numOfRays;
 
 
     /**
@@ -35,7 +47,7 @@ public class Camera {
 
     /**
      * getters
-     * @return vUp, vTo, vRight
+     * @return vUp, vTo, vRight, Aperture, NumOfRays, FocalDistance
      */
     public Vector getvUp() {
         return _vUp;
@@ -47,6 +59,18 @@ public class Camera {
 
     public Vector getvRight() {
         return _vRight;
+    }
+
+    public double getAperture() {
+        return _aperture;
+    }
+
+    public int getNumOfRays() {
+        return _numOfRays;
+    }
+
+    public double getFocalDistance() {
+        return _focalDistance;
     }
 
 
@@ -65,6 +89,20 @@ public class Camera {
     public Camera setDistance(double distance){
         _distance=distance;
         return this;
+    }
+
+    /**
+     * setter of Depth of filed. if Depth of filed function is called the camera will be focused for a specific distance.
+     * if Depth of filed will not be called the camera will be focused on the whole scene equally.
+     *
+     * @param focalDistance - the distance of the  focus.
+     * @param aperture      - the radius of the aperture.
+     * @param numOfRays     - number of rays that will be in the beam from every pixels area (in addition to the original ray).
+     */
+    public void setDepthOfFiled(double focalDistance, double aperture, int numOfRays) {
+        _focalDistance = focalDistance;
+        _aperture = aperture;
+        _numOfRays = numOfRays;
     }
 
     /**
@@ -100,5 +138,26 @@ public class Camera {
 
         Pij = Pij.add(_vRight.scale(Xj).add(_vUp.scale(Yi)));
         return new Ray(_p0, Pij.subtract(_p0));
+    }
+
+    /**
+     * builds a beam of Rays from the area of a pixel through a specific point on the focal plane
+     *
+     * @param nX             - number of cells left to right
+     * @param nY             - number of cells up to down
+     * @param j              - index of width cell
+     * @param i              - index of height cell
+     * @param screenDistance - the distance between the camera and the view plane
+     * @param screenWidth    - width of view plane in pixels
+     * @param screenHeight   - height of view plane in pixels
+     * @return - a list of rays that contains the beam of rays
+     */
+    public List<Ray> constructRaysThroughPixel(int nX, int nY, int j, int i, double screenDistance, double screenWidth, double screenHeight) {
+        Ray ray = constructRayThroughPixel(nX, nY, j, i/*, screenDistance, screenWidth, screenHeight*/);
+        Point3D pij = ray.getPoint(screenDistance / (_vTo.dotProduct(ray.getDir())));
+        Point3D f = ray.getPoint((_focalDistance + screenDistance) / (_vTo.dotProduct(ray.getDir())));//focal point
+        List<Ray> result = rayRandomBeam(pij, f, _aperture, _numOfRays, _vRight, _vUp);
+        result.add(new Ray(pij, ray.getDir()));
+        return result;
     }
 }

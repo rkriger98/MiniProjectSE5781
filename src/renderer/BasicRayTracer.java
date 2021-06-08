@@ -15,6 +15,7 @@ public class BasicRayTracer extends BaseRayTracer {
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
     private static final double INITIAL_K = 1.0;
+    //private static final double MAX_DIAMETER_C
 
 
     public BasicRayTracer(Scene scene) {
@@ -294,6 +295,10 @@ public class BasicRayTracer extends BaseRayTracer {
         }
         return ktr;
     }
+
+//    private Color DepthOfField(double aperture){
+//
+//    }
 
 
 }
