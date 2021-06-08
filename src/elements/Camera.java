@@ -73,6 +73,17 @@ public class Camera {
         return _focalDistance;
     }
 
+    public double getWidth() {
+        return _width;
+    }
+
+    public double getHeight() {
+        return _height;
+    }
+
+    public double getDistance() {
+        return _distance;
+    }
 
     /**
      * borrowing from Builder pattern

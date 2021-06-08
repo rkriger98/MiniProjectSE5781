@@ -9,13 +9,14 @@ import java.util.MissingFormatArgumentException;
 import java.util.MissingResourceException;
 
 public class Render {
-    private ImageWriter _imageWriter=null;
-   //private Scene _scene;
-    private Camera _camera=null;
-    private BaseRayTracer _rayTracerBase=null;
+    private ImageWriter _imageWriter = null;
+    //private Scene _scene;
+    private Camera _camera = null;
+    private BaseRayTracer _rayTracerBase = null;
 
     /**
      * Builder set functions
+     *
      * @param imageWriter
      * @return
      */
@@ -23,7 +24,6 @@ public class Render {
         _imageWriter = imageWriter;
         return this;
     }
-
 
 
     public Render setCamera(Camera camera) {
@@ -54,8 +54,7 @@ public class Render {
                     _imageWriter.writePixel(j, i, _rayTracerBase.traceRay(ray));
                 }
             }
-        }
-        catch(MissingResourceException e){
+        } catch (MissingResourceException e) {
             throw new UnsupportedOperationException("Not implemented yet");
         }
     }
@@ -67,25 +66,24 @@ public class Render {
             }
             int nX = _imageWriter.getNx();
             int nY = _imageWriter.getNy();
-            final double dist = _scene.getDistance();
-            final double width = imageWriter.getWidth();
-            final double height = imageWriter.getHeight();
+            double dist = _camera.getDistance();
+            double width = _camera.getWidth();
+            double height = _camera.getHeight();
             for (int i = 0; i < nY; i++) {
                 for (int j = 0; j < nX; j++) {
-                    List<Ray> ray = _camera.constructRayThroughPixel(nX, nY, j, i,);
-                    _imageWriter.writePixel(j, i, _rayTracerBase.traceRay(ray));
+                    List<Ray> rays = _camera.constructRaysThroughPixel(nX, nY, j, i, dist, width, height);
+                        _imageWriter.writePixel(j, i, _rayTracerBase.traceRays(rays));
                 }
             }
-        }
-        catch(MissingResourceException e){
+        } catch (MissingResourceException e) {
             throw new UnsupportedOperationException("Not implemented yet");
         }
     }
 
 
-
     /**
      * Activates the function writePixel for each point
+     *
      * @param interval
      * @param color
      */
