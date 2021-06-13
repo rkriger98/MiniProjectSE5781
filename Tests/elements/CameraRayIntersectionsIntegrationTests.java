@@ -36,7 +36,7 @@ public class CameraRayIntersectionsIntegrationTests {
 
         for (int i = 0; i < x; ++i) {
             for (int j = 0; j < y; ++j) {
-                List<Point3D> list = intersectable.findIntersections(camera.constructRayThroughPixel(x, y, j, i));
+                List<Point3D> list = intersectable.findIntersections(camera.constructRayThroughPixel(x, y, j, i,camera.getDistance(),camera.getWidth(),camera.getFocalDistance()));
                 if (list != null) {
                     points.addAll(list);
                 }

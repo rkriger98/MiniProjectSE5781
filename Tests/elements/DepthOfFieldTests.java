@@ -1,6 +1,8 @@
 package elements;
 
+import geometries.Plane;
 import geometries.Sphere;
+import geometries.Triangle;
 import org.junit.jupiter.api.Test;
 import primitives.Color;
 import primitives.Material;
@@ -29,21 +31,24 @@ public class DepthOfFieldTests {
             scene.geometries.add(
                     new Sphere(2, new Point3D(x, y - 2 * i, z + i * 5)) //
                             .setEmission(new Color(java.awt.Color.MAGENTA)) //
-                            .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)), //
+                            .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(1)), //
                     new Sphere(2, new Point3D(x + 3, y - 2 * i, z + i * 5)) //
                             .setEmission(new Color(java.awt.Color.BLUE)) //
-                            .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)), //
+                            .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(1)), //
                     new Sphere(2, new Point3D(x - 3, y - 2 * i, z + i * 5)) //
                             .setEmission(new Color(java.awt.Color.GREEN)) //
-                            .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)));
+
+                            .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(1)));
 
 
         }
 
-        scene.lights.add(new SpotLight(new Color(1000, 600, 0), new Point3D(-100, 100, -500), new Vector(-1, 1, 2))
-                .setKl(0.0004).setKq(0.0000006));
+        scene.lights.add(
+                new SpotLight(new Color(java.awt.Color.WHITE), new Point3D(-100, 100, -500), new Vector(-1, 10, 2))
+                .setKl(0.0004).setKq(0.0000006)
+        );
 
-        camera.setDepthOfFiled(10, 1, 100);
+        camera.setDepthOfFiled(1, 30, 50);
         Render render = new Render(). //
                 setImageWriter(new ImageWriter("DepthOfField", 500, 500)) //
                 .setCamera(camera) //

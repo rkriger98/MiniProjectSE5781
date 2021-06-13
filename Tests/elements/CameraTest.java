@@ -30,7 +30,7 @@ public class CameraTest {
 
         // TC02: 4X4 Corner (0,0)
         assertEquals(new Ray(Point3D.PointZERO, new Vector(-3, -3, 10)),
-                camera.setViewPlaneSize(8, 8).constructRayThroughPixel(4, 4, 0, 0),"Bad ray");
+                camera.setViewPlaneSize(8, 8).constructRayThroughPixel(4, 4, 0, 0,camera.getDistance(),camera.getWidth(),camera.getFocalDistance()),"Bad ray");
 
         // TC03: 4X4 Side (0,1)
         assertEquals(new Ray(Point3D.PointZERO, new Vector(-1, -3, 10)),

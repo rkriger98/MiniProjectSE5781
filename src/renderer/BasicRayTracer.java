@@ -1,6 +1,7 @@
 package renderer;
 
 import elements.LightSource;
+import geometries.Geometry;
 import geometries.Intersectable.GeoPoint;
 import primitives.*;
 import scene.Scene;
@@ -46,28 +47,34 @@ public class BasicRayTracer extends BaseRayTracer {
 
     @Override
     public Color traceRays(List<Ray> rays) {
-        List<GeoPoint> intersections = null;
+
+
+        Color color = new Color(_scene.background);
+
         for (Ray ray : rays) {
-            if (intersections != null)
-                intersections.addAll(_scene.geometries.findGeoIntersections(ray));
-            else {
-                intersections = new LinkedList<>();
-                intersections =_scene.geometries.findGeoIntersections(ray);
-            }
+            color=color.add(traceRay(ray));
         }
-        if (intersections != null) {
-            GeoPoint closestPoint = null;
-            Color color = _scene.background;
-            for (Ray ray : rays) {
-                closestPoint = ray.findClosestGeoPoint(intersections);
-                color = color.add(calcColor(closestPoint, ray))
-                        .add(_scene.ambientLight.getIntensity()
-                                .add(closestPoint.geometry.getEmission()));
-            }
-            return color;
-        }
-        return _scene.background;
+       color= color.reduce(rays.size());
+        return color;
     }
+
+
+//    private Color addColors(List<Ray> rays) {
+//        Color sum = new Color(_scene.background);
+//
+//        for (Ray ray : rays) {
+//            List<GeoPoint> intersections = _scene.geometries.findGeoIntersections(ray);
+//            if (intersections != null) {
+//                GeoPoint closestPoint = ray.findClosestGeoPoint(intersections);
+//                sum = sum.add(calcColor(closestPoint, ray))
+//                        .add(_scene.ambientLight.getIntensity()
+//                                .add(closestPoint.geometry.getEmission()));
+//            }
+//
+//        }
+//        return sum;
+//    }
+
 
     /**
      * call to the recursive func calcColor
@@ -328,9 +335,8 @@ public class BasicRayTracer extends BaseRayTracer {
         return ktr;
     }
 
-//    private Color DepthOfField(double aperture){
-//
-//    }
 
 
-}
+
+    }
+

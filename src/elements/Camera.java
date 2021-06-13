@@ -124,7 +124,7 @@ public class Camera {
      * @param i
      * @return the ray
      */
-    public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
+    public Ray constructRayThroughPixel(int nX, int nY, int j, int i,double screenDistance, double screenWidth, double screenHeight) {
         Point3D Pc = _p0.add(_vTo.scale(_distance));
 
         double Rx = _width / nX;
@@ -164,7 +164,7 @@ public class Camera {
      * @return - a list of rays that contains the beam of rays
      */
     public List<Ray> constructRaysThroughPixel(int nX, int nY, int j, int i, double screenDistance, double screenWidth, double screenHeight) {
-        Ray ray = constructRayThroughPixel(nX, nY, j, i/*, screenDistance, screenWidth, screenHeight*/);
+        Ray ray = constructRayThroughPixel(nX, nY, j, i, screenDistance, screenWidth, screenHeight);
         Point3D pij = ray.getPoint(screenDistance / (_vTo.dotProduct(ray.getDir())));
         Point3D f = ray.getPoint((_focalDistance + screenDistance) / (_vTo.dotProduct(ray.getDir())));//focal point
         List<Ray> result = rayRandomBeam(pij, f, _aperture, _numOfRays, _vRight, _vUp);
