@@ -66,12 +66,9 @@ public class Render {
             }
             int nX = _imageWriter.getNx();
             int nY = _imageWriter.getNy();
-            double dist = _camera.getDistance();
-            double width = _camera.getWidth();
-            double height = _camera.getHeight();
             for (int i = 0; i < nY; i++) {
                 for (int j = 0; j < nX; j++) {
-                    List<Ray> rays = _camera.constructRaysThroughPixel(nX, nY, j, i, dist, width, height);
+                    List<Ray> rays = _camera.constructRaysThroughPixel(nX, nY, j, i);
                         _imageWriter.writePixel(j, i, _rayTracerBase.traceRays(rays));
                 }
             }

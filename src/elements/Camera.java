@@ -110,10 +110,11 @@ public class Camera {
      * @param aperture      - the radius of the aperture.
      * @param numOfRays     - number of rays that will be in the beam from every pixels area (in addition to the original ray).
      */
-    public void setDepthOfFiled(double focalDistance, double aperture, int numOfRays) {
+    public Camera setDepthOfFiled(double focalDistance, double aperture, int numOfRays) {
         _focalDistance = focalDistance;
         _aperture = aperture;
         _numOfRays = numOfRays;
+        return this;
     }
 
     /**
@@ -124,7 +125,7 @@ public class Camera {
      * @param i
      * @return the ray
      */
-    public Ray constructRayThroughPixel(int nX, int nY, int j, int i,double screenDistance, double screenWidth, double screenHeight) {
+    public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
         Point3D Pc = _p0.add(_vTo.scale(_distance));
 
         double Rx = _width / nX;
@@ -158,17 +159,16 @@ public class Camera {
      * @param nY             - number of cells up to down
      * @param j              - index of width cell
      * @param i              - index of height cell
-     * @param screenDistance - the distance between the camera and the view plane
-     * @param screenWidth    - width of view plane in pixels
-     * @param screenHeight   - height of view plane in pixels
      * @return - a list of rays that contains the beam of rays
      */
-    public List<Ray> constructRaysThroughPixel(int nX, int nY, int j, int i, double screenDistance, double screenWidth, double screenHeight) {
-        Ray ray = constructRayThroughPixel(nX, nY, j, i, screenDistance, screenWidth, screenHeight);
-        Point3D pij = ray.getPoint(screenDistance / (_vTo.dotProduct(ray.getDir())));
-        Point3D f = ray.getPoint((_focalDistance + screenDistance) / (_vTo.dotProduct(ray.getDir())));//focal point
+    public List<Ray> constructRaysThroughPixel(int nX, int nY, int j, int i) {
+        Ray ray = constructRayThroughPixel(nX, nY, j, i);
+        Point3D pij = ray.getPoint(_distance / (_vTo.dotProduct(ray.getDir())));//
+        Point3D f = ray.getPoint((_focalDistance + _distance) / (_vTo.dotProduct(ray.getDir())));//focal point
         List<Ray> result = rayRandomBeam(pij, f, _aperture, _numOfRays, _vRight, _vUp);
         result.add(new Ray(pij, ray.getDir()));
         return result;
     }
+
+
 }

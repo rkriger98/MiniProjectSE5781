@@ -47,14 +47,11 @@ public class BasicRayTracer extends BaseRayTracer {
 
     @Override
     public Color traceRays(List<Ray> rays) {
-
-
         Color color = new Color(_scene.background);
-
         for (Ray ray : rays) {
-            color=color.add(traceRay(ray));
+            color = color.add(traceRay(ray));
         }
-       color= color.reduce(rays.size());
+        color = color.scale(rays.size());
         return color;
     }
 
@@ -336,7 +333,5 @@ public class BasicRayTracer extends BaseRayTracer {
     }
 
 
-
-
-    }
+}
 
