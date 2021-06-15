@@ -9,6 +9,7 @@ import scene.Scene;
 import java.util.LinkedList;
 import java.util.List;
 
+import static primitives.Ray.rayRandomBeam;
 import static primitives.Util.alignZero;
 
 public class BasicRayTracer extends BaseRayTracer {
@@ -55,22 +56,6 @@ public class BasicRayTracer extends BaseRayTracer {
         return color;
     }
 
-
-//    private Color addColors(List<Ray> rays) {
-//        Color sum = new Color(_scene.background);
-//
-//        for (Ray ray : rays) {
-//            List<GeoPoint> intersections = _scene.geometries.findGeoIntersections(ray);
-//            if (intersections != null) {
-//                GeoPoint closestPoint = ray.findClosestGeoPoint(intersections);
-//                sum = sum.add(calcColor(closestPoint, ray))
-//                        .add(_scene.ambientLight.getIntensity()
-//                                .add(closestPoint.geometry.getEmission()));
-//            }
-//
-//        }
-//        return sum;
-//    }
 
 
     /**
@@ -331,6 +316,9 @@ public class BasicRayTracer extends BaseRayTracer {
         }
         return ktr;
     }
+
+
+
 
 
 }

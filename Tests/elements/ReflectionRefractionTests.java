@@ -124,39 +124,6 @@ public class ReflectionRefractionTests {
         render.writeToImage();
     }
 
-
-
-
-    @Test
-    public void trianglesTransparentSphere1() {
-        Camera camera = new Camera(new Point3D(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-                .setViewPlaneSize(200, 200).setDistance(1000);
-                camera.setDepthOfFiled(10, 0.5, 100);
-
-        scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
-
-        scene.geometries.add( //
-                new Triangle(new Point3D(-150, -150, -115), new Point3D(150, -150, -135), new Point3D(75, 75, -150)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)), //
-                new Triangle(new Point3D(-150, -150, -115), new Point3D(-70, 70, -140), new Point3D(75, 75, -150)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(60)), //
-                new Sphere(30, new Point3D(60, 50, -50)) //
-                        .setEmission(new Color(java.awt.Color.BLUE)) //
-                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setShininess(30).setKt(0.6)));
-
-        scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point3D(60, 50, 0), new Vector(0, 0, -1)) //
-                .setKl(4E-5).setKq(2E-7));
-
-        ImageWriter imageWriter = new ImageWriter("refractionShadow1", 600, 600);
-        Render render = new Render() //
-                .setImageWriter(imageWriter) //
-                .setCamera(camera) //
-                .setRayTracer(new BasicRayTracer(scene));
-
-        render.renderImage2();
-        render.writeToImage();
-    }
-
     /**
      * Our picture
      */

@@ -1,9 +1,11 @@
 package elements;
 
+import primitives.Coordinate;
 import primitives.Point3D;
 import primitives.Vector;
 import primitives.Ray;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static primitives.Ray.rayRandomBeam;
@@ -151,24 +153,5 @@ public class Camera {
         Pij = Pij.add(_vRight.scale(Xj).add(_vUp.scale(Yi)));
         return new Ray(_p0, Pij.subtract(_p0));
     }
-
-    /**
-     * builds a beam of Rays from the area of a pixel through a specific point on the focal plane
-     *
-     * @param nX             - number of cells left to right
-     * @param nY             - number of cells up to down
-     * @param j              - index of width cell
-     * @param i              - index of height cell
-     * @return - a list of rays that contains the beam of rays
-     */
-    public List<Ray> constructRaysThroughPixel(int nX, int nY, int j, int i) {
-        Ray ray = constructRayThroughPixel(nX, nY, j, i);
-        Point3D pij = ray.getPoint(_distance / (_vTo.dotProduct(ray.getDir())));//
-        Point3D f = ray.getPoint((_focalDistance + _distance) / (_vTo.dotProduct(ray.getDir())));//focal point
-        List<Ray> result = rayRandomBeam(pij, f, _aperture, _numOfRays, _vRight, _vUp);
-        result.add(new Ray(pij, ray.getDir()));
-        return result;
-    }
-
 
 }

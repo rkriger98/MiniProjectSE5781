@@ -156,4 +156,7 @@ public class Vector {
     public int hashCode() {
         return Objects.hash(_head);
     }
+
+
+
 }
