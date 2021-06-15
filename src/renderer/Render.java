@@ -280,7 +280,7 @@ public class Render {
         Point3D pij = ray.getPoint(camera.getDistance() / (camera.getvTo().dotProduct(ray.getDir())));
         Point3D f = ray.getPoint((camera.getFocalDistance() + camera.getDistance()) / (camera.getvTo().dotProduct(ray.getDir())));//focal point
         Color color = rec(camera.getAperture(), camera.getNumOfRays(), pij, f, 3, pixel);
-        result = result.add(color.reduce(pixel.counter));
+        result = result.add(/*tracer.traceRay(ray)*/color.reduce(pixel.counter));
         return result;
     }
 

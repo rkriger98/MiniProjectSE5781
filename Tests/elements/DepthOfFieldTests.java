@@ -1,8 +1,6 @@
 package elements;
 
-import geometries.Plane;
-import geometries.Sphere;
-import geometries.Triangle;
+import geometries.*;
 import org.junit.jupiter.api.Test;
 import primitives.Color;
 import primitives.Material;
@@ -127,7 +125,6 @@ public class DepthOfFieldTests {
     }
 
 
-
     public void DOP4() {
 
         Scene scene = new Scene("Test scene");
@@ -159,4 +156,60 @@ public class DepthOfFieldTests {
         render.renderImage();
         render.writeToImage();
     }
+
+    @Test
+    public void project1() {
+        Scene scene = new Scene("Test scene");
+        Camera camera = new Camera(new Point3D(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+                .setViewPlaneSize(200, 200).setDistance(1000)
+                .setDepthOfFiled(10, 0.3, 200);
+
+        scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
+
+        scene.geometries.add(
+                new Polygon(
+                        new Point3D(-70, 70, -150),
+                        new Point3D(70, 70, -150),
+                        new Point3D(150, -150, -150),
+                        new Point3D(-150, -150, -150))
+                        .setEmission(new Color(20, 0, 0))
+                        .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(300)),
+                new Sphere(20, new Point3D(50, -50, -148)) //
+                        .setEmission(new Color(java.awt.Color.BLUE)) //
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)),
+                new Sphere(10, new Point3D(-30, -50, -148)) //
+                        .setEmission(new Color(java.awt.Color.CYAN)) //
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)),
+                new Sphere(10, new Point3D(10, -50, -148)) //
+                        .setEmission(new Color(java.awt.Color.GREEN)) //
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)),
+                new Polygon(
+                        new Point3D(0, 0, 0),
+                        new Point3D(40, 0, 0),
+                        new Point3D(40, 30, 0),
+                        new Point3D(0, 30, 0),
+                        new Point3D(20, 10, 40))
+                        .setEmission(new Color(0, 0, 0))
+                        .setMaterial(new Material().setKd(0.8).setKs(0.2).setShininess(300))
+
+
+        );
+        // scene.lights.add(
+        //         new DirectionalLight(new Color(300, 150, 150), new Vector(0, 0, -1)));
+        scene.lights.add( //
+                new SpotLight(new Color(700, 400, 400), new Point3D(-40, -80, 115), new Vector(-1, 1, -4)) //
+                        .setKl(4E-4).setKq(2E-5));
+
+        ImageWriter imageWriter = new ImageWriter("project1", 600, 600);
+        Render render = new Render()
+                .setImageWriter(imageWriter) //
+                .setCamera(camera) //
+                .setRayTracer(new BasicRayTracer(scene));
+
+        render.renderImage();
+        render.writeToImage();
+
+    }
+
+
 }
