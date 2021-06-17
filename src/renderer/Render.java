@@ -276,7 +276,7 @@ public class Render {
         if (camera.getNumOfRays() <= 1)
             return tracer.traceRay(ray);
 
-        Color result = new Color(0, 0, 0);
+        Color result = tracer._scene.background;
         Point3D pij = ray.getPoint(camera.getDistance() / (camera.getvTo().dotProduct(ray.getDir())));
         Point3D f = ray.getPoint((camera.getFocalDistance() + camera.getDistance()) / (camera.getvTo().dotProduct(ray.getDir())));//focal point
         Color color = rec(camera.getAperture(), camera.getNumOfRays(), pij, f, 3, pixel);

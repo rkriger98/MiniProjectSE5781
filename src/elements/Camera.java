@@ -154,4 +154,7 @@ public class Camera {
         return new Ray(_p0, Pij.subtract(_p0));
     }
 
+
+
+
 }
