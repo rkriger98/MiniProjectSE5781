@@ -52,7 +52,7 @@ public class BasicRayTracer extends BaseRayTracer {
         for (Ray ray : rays) {
             color = color.add(traceRay(ray));
         }
-        color = color.scale(rays.size());
+        color = color.reduce(rays.size());
         return color;
     }
 

@@ -28,13 +28,13 @@ public class DepthOfFieldTests {
             scene.geometries.add(
                     new Sphere(2, new Point3D(x, y - 2 * i, z + i * 5))
                             .setEmission(new Color(java.awt.Color.MAGENTA))
+                            .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
+                    new Sphere(2, new Point3D(x + 3, y - 2 * i, z + i * 5))
+                            .setEmission(new Color(java.awt.Color.MAGENTA))
+                            .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
+                    new Sphere(2, new Point3D(x - 3, y - 2 * i, z + i * 5))
+                            .setEmission(new Color(java.awt.Color.MAGENTA))
                             .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3))
-//                    new Sphere(2, new Point3D(x + 3, y - 2 * i, z + i * 5))
-//                            .setEmission(new Color(java.awt.Color.MAGENTA))
-//                            .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
-//                    new Sphere(2, new Point3D(x - 3, y - 2 * i, z + i * 5))
-//                            .setEmission(new Color(java.awt.Color.MAGENTA))
-//                            .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3))
             );
         }
 
@@ -53,177 +53,14 @@ public class DepthOfFieldTests {
     }
 
 
-    @Test
-    public void DOP21() {
-        Scene scene = new Scene("Test scene");
-        Camera camera = new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0))
-                .setDistance(1000)
-                .setViewPlaneSize(30, 30);
-        // .setDepthOfFiled(15, 0.3, 200);
-        scene.setBackground(new Color(java.awt.Color.BLACK));
-        scene.setAmbientLight(new AmbientLight(Color.BLACK, 0));
-
-
-        int y1 = -9, y2 = -13, y3 = -17, z = 0, x = 7, y = 8;
-        for (int i = 0; i < 4; i++) {
-            scene.geometries.add(
-                    new Polygon(new Point3D(-5, y1 + 8 * i, z + i * 5), new Point3D(-9, y1 + 8 * i, z + i * 5),
-                            new Point3D(-9, y2 + 8 * i, z + i * 5), new Point3D(-5, y2 + 8 * i, z + i * 5))
-                            .setEmission(new Color(100, 100, 100))
-                            .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKr(0.6)),
-
-                    new Polygon(new Point3D(-9, y2 + 8 * i, z + i * 5), new Point3D(-13, y2 + 8 * i, z + i * 5),
-                            new Point3D(-13, y3 + 8 * i, z + i * 5), new Point3D(-9, y3 + 8 * i, z + i * 5))
-                            .setEmission(new Color(100, 100, 100))
-                            .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKr(0.6)),
-
-                    new Polygon(new Point3D(-13, y1 + 8 * i, z + i * 5), new Point3D(-17, y1 + 8 * i, z + i * 5),
-                            new Point3D(-17, y2 + 8 * i, z + i * 5), new Point3D(-13, y2 + 8 * i, z + i * 5))
-                            .setEmission(new Color(100, 100, 100))
-                            .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKr(0.6))
-
-
-            );
-        }
-
-
-        // int, z = 0;
-        for (int i = 0; i < 10; i++) {
-            scene.geometries.add(
-                    new Sphere(2, new Point3D(x - 2 * i, y - 2 * i, z + i * 5))
-                            .setEmission(new Color(java.awt.Color.MAGENTA))
-                            .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.6)),
-                    new Sphere(2, new Point3D(x + 3 - 2 * i, y - 2 * i, z + i * 5))
-                            .setEmission(new Color(java.awt.Color.MAGENTA))
-                            .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.6)),
-                    new Sphere(2, new Point3D(x - 3 - 2 * i, y - 2 * i, z + i * 5))
-                            .setEmission(new Color(java.awt.Color.MAGENTA))
-                            .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.6))
-            );
-        }
-
-        // x = 0; y = 10; z = 0;
-
-
-        scene.lights.add(new SpotLight(new Color(1000, 600, 0), new Point3D(-100, 100, -500), new Vector(-1, 1, 2))
-                .setKl(0.0004).setKq(0.0000006));
-        scene.lights.add(new SpotLight(new Color(1000, 600, 0), new Point3D(-500, 100, -500), new Vector(-1, 1, 2))
-                .setKl(0.0004).setKq(0.0000006));
-
-        Render render = new Render()
-                .setImageWriter(new ImageWriter("DOP21", 500, 500)) //
-                .setCamera(camera) //
-                .setRayTracer(new BasicRayTracer(scene))
-                .setFlagDOP(true);
-        render.renderImage();
-        render.writeToImage();
-
-
-    }
-
-//    @Test
-//    public void pictureDOP2() {
-//
-//        Scene scene = new Scene("Test scene");
-//        Camera camera = new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0))
-//                .setViewPlaneSize(500, 500).setDistance(1000)
-//                .setDepthOfFiled(1000, 0.3, 100);
-//        //setDepthOfFiled(15, 0.3, 200);
-//        // scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
-//
-//        scene.geometries.add(
-//
-//
-////                new Polygon(
-////                            new Point3D(-250, 0, 0),
-////                            new Point3D(250, 120, 0),
-////                            new Point3D(250, 250, 0),
-////                            new Point3D(-250, 250, 0))
-////                            .setEmission(new Color(100, 100, 100))
-////                            .setMaterial(new Material().setKd(1).setKs(1).setShininess(20).setKt(0.7).setKr(0.7)),
-//
-////                new Plane(new Point3D(180, 48, 20), new Vector(0, -1, 0))
-////                        .setEmission(new Color(100, 100, 100)) //
-////                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100).setKr(0.5)), //
-//
-//
-//                new Sphere(45, new Point3D(-200, 3, 200)) //
-//                        .setEmission(new Color(java.awt.Color.CYAN))//
-//                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-//
-//                new Sphere(45, new Point3D(-100, 3, 0)) //
-//                        .setEmission(new Color(java.awt.Color.MAGENTA)) //
-//                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-//
-//                new Sphere(45, new Point3D(0, 3, -200/*-50, 20, 45ָָָ*/)) //
-//                        .setEmission(new Color(java.awt.Color.ORANGE)) //
-//                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-//
-//                new Sphere(45, new Point3D(100, 3, -400)) //
-//                        .setEmission(new Color(java.awt.Color.RED)) //
-//                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-//
-//
-//                new Sphere(30, new Point3D(-200, -70, 200)) //
-//                        .setEmission(new Color(0, 20, 0)) //
-//                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-//
-//                new Sphere(30, new Point3D(-100, -70, 0)) //
-//                        .setEmission(new Color(0, 20, 0)) //
-//                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-//
-//                new Sphere(30, new Point3D(0, -70, -200/*-50, 20, 45ָָָ*/)) //
-//                        .setEmission(new Color(0, 20, 0)) //
-//                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-//
-//                new Sphere(30, new Point3D(100, -70, -400)) //
-//                        .setEmission(new Color(0, 20, 0)) //
-//                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-//
-//
-//                new Sphere(15, new Point3D(-200, -115, 200)) //
-//                        .setEmission(new Color(0, 0, 20)) //
-//                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-//
-//                new Sphere(15, new Point3D(-100, -115, 0)) //
-//                        .setEmission(new Color(0, 0, 20)) //
-//                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-//
-//                new Sphere(15, new Point3D(0, -115, -200/*-50, 20, 45ָָָ*/)) //
-//                        .setEmission(new Color(0, 0, 20)) //
-//                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-//
-//                new Sphere(15, new Point3D(100, -115, -400)) //
-//                        .setEmission(new Color(0, 0, 20)) //
-//                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)) //
-//
-//
-//        );
-//
-//
-//        scene.lights.add(new SpotLight(new Color(java.awt.Color.WHITE), new Point3D(-140, 0, 20), new Vector(0, -1, 0)));
-//
-//        //scene.lights.add(new DirectionalLight(new Color(java.awt.Color.WHITE), new Vector(-1, -0.3, 1)));//
-//
-//
-//        Render render = new Render()
-//                .setImageWriter(new ImageWriter("DOP2", 500, 500)) //
-//                .setCamera(camera) //
-//                .setRayTracer(new BasicRayTracer(scene))
-//                .setFlagDOP(true);
-//        render.renderImage();
-//        render.writeToImage();
-//
-//    }
-
 
     @Test
     public void DOP3() {
 
         Scene scene = new Scene("Test scene");
         Camera camera = new Camera(new Point3D(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-                .setViewPlaneSize(100, 100).setDistance(1000)
-                .setDepthOfFiled(10, 0.3, 200);
+                .setViewPlaneSize(200, 200).setDistance(1000);
+        //.setDepthOfFiled(10, 0.3, 200);
 
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
 
@@ -239,7 +76,7 @@ public class DepthOfFieldTests {
         scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point3D(60, 50, 0), new Vector(0, 0, -1)) //
                 .setKl(4E-5).setKq(2E-7));
 
-        ImageWriter imageWriter = new ImageWriter("DOP3", 600, 600);
+        ImageWriter imageWriter = new ImageWriter("DOP31", 600, 600);
         Render render = new Render()
                 .setFlagDOP(true)
                 .setImageWriter(imageWriter) //
@@ -250,100 +87,57 @@ public class DepthOfFieldTests {
         render.writeToImage();
     }
 
+
     @Test
     public void New() {
         Scene scene = new Scene("Test scene");
-        Camera camera = new Camera(new Point3D(0, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0))
+        Camera camera = new Camera(new Point3D(-120, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0))
                 .setDistance(1000)
-                .setViewPlaneSize(600, 600)
-                .setDepthOfFiled(15, 0.3, 200);
+                .setViewPlaneSize(350, 350);
+       // .setDepthOfFiled(15, 0.08, 200);
         scene.setBackground(new Color(java.awt.Color.BLACK));
-        scene.setAmbientLight(new AmbientLight(Color.BLACK, 0));
+        scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0));
 
         scene.geometries.add(
 
-                new Plane(new Point3D(-100, 400, 200), new Vector(0, 1, 0))
+                new Plane(new Point3D(-200, 300, 0), new Vector(0, 5, 0))
                         .setEmission(new Color(100, 100, 100))//
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100).setKr(0.6)), //
-
-
-                new Sphere(45, new Point3D(-200, 3, 600)) //
-                        .setEmission(new Color(20, 0, 0))//
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-
-                new Sphere(45, new Point3D(-100, 3, 400)) //
-                        .setEmission(new Color(20, 0, 0)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-
-                new Sphere(45, new Point3D(0, 3, 200)) //
-                        .setEmission(new Color(20, 0, 0)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-
-                new Sphere(45, new Point3D(100, 3, 0)) //
-                        .setEmission(new Color(20, 0, 0)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-
-
-                new Sphere(30, new Point3D(-200, -70, 600)) //
-                        .setEmission(new Color(0, 20, 0)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100).setKt(1)), //
-
-                new Sphere(30, new Point3D(-100, -70, 400)) //
-                        .setEmission(new Color(0, 20, 0)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100).setKt(1)), //
-
-                new Sphere(30, new Point3D(0, -70, 200)) //
-                        .setEmission(new Color(0, 20, 0)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100).setKt(1)), //
-
-                new Sphere(15, new Point3D(-200, -70, 600)) //
-                        .setEmission(new Color(0, 0, 20)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100).setKt(0.6)), //
-
-                new Sphere(15, new Point3D(-100, -70, 400)) //
-                        .setEmission(new Color(0, 0, 20)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100).setKt(0.6)), //
-
-                new Sphere(15, new Point3D(0, -70, 200)) //
-                        .setEmission(new Color(0, 0, 20)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100).setKt(0.6)), //
-
-                new Sphere(30, new Point3D(100, -70, 0)) //
-                        .setEmission(new Color(0, 20, 0)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100).setKt(1)), //), //
-
-
-                new Sphere(15, new Point3D(-200, -115, 600)) //
-                        .setEmission(new Color(0, 0, 20)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-
-                new Sphere(15, new Point3D(-100, -115, 400)) //
-                        .setEmission(new Color(0, 0, 20)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-
-                new Sphere(15, new Point3D(0, -115, 200)) //
-                        .setEmission(new Color(0, 0, 20)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)), //
-
-                new Sphere(15, new Point3D(100, -115, 0)) //
-                        .setEmission(new Color(0, 0, 20)) //
-                        .setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(100)) //
-
+                        .setMaterial(new Material().setKd(1).setKs(1).setShininess(20).setKt(0.8))
 
         );
+        for (int i = 1; i < 7; i++) {
+            scene.geometries.add(
 
 
-//        scene.lights.add(new SpotLight(new Color(100, 100, 100), new Point3D(-100, -115, -50), new Vector(0, -1, 0))
-//                .setKl(0.0004).setKq(0.0000006));
-//        scene.lights.add(new SpotLight(new Color(100, 600, 100), new Point3D(0, -115, 150), new Vector(0, -1, 0))
-//                .setKl(0.0004).setKq(0.0000006));
-//        scene.lights.add(new SpotLight(new Color(100, 100, 100), new Point3D(-100, -115, 350), new Vector(0, -1, 0))
-//                .setKl(0.0004).setKq(0.0000006));
-//        scene.lights.add(new SpotLight(new Color(100, 100, 100), new Point3D(-200, -115, 550), new Vector(0, -1, 0))
-//                .setKl(4E-5).setKq(2E-7));
-//        scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point3D(60, 50, 0), new Vector(0, 0, -1)) //
-//                .setKl(4E-5).setKq(2E-7));
-        scene.lights.add(new DirectionalLight(new Color(100, 100, 100), new Vector(0, 0, 1)));
+                    new Sphere(45, new Point3D(100 + -i * 100, 3, i * 200)) //
+                            .setEmission(new Color(20, 0, 0))//
+                            .setMaterial(new Material().setKd(1).setKs(1).setShininess(100)), //
+
+
+                    new Sphere(30, new Point3D(100 + -i * 100, -70, i * 200)) //
+                            .setEmission(new Color(0, 20, 0)) //
+                            .setMaterial(new Material().setKd(1).setKs(1).setShininess(100)), //
+
+                    new Sphere(15, new Point3D(100 + -i * 100, -115,  i * 200)) //
+                            .setEmission(new Color(0, 0, 20)) //
+                            .setMaterial(new Material().setKd(1).setKs(1).setShininess(100))//
+
+
+            );
+
+
+
+        }
+
+
+
+       scene.lights.add(new DirectionalLight(new Color(50, 50, 50), new Vector(50, 180, 600)));
+        Color c=new Color(java.awt.Color.YELLOW);
+        scene.lights.add(new DirectionalLight(new Color(20,0,20), new Vector(50, 180, 600)));
+
+      //  scene.lights.add(new PointLight(new Color(50, 50, 50), new Point3D(100 , -50,0)));
+
+
 
 
         Render render = new Render()
@@ -356,10 +150,7 @@ public class DepthOfFieldTests {
 
 
     }
-
-
 }
-
 
 
 
