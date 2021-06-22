@@ -46,6 +46,11 @@ public class BasicRayTracer extends BaseRayTracer {
         return _scene.background;
     }
 
+    /**
+     * Calculate the average of a color in a point
+     * @param rays
+     * @return color 
+     */
     @Override
     public Color traceRays(List<Ray> rays) {
         Color color = new Color(_scene.background);

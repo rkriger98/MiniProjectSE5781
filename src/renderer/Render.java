@@ -14,7 +14,7 @@ public class Render {
     //private Scene _scene;
     private Camera _camera=null;
     private BaseRayTracer _rayTracerBase=null;
-    private  boolean FlagDOP;
+    private  boolean FlagDOP=false;
 
     /**
      * Builder set functions
@@ -58,12 +58,25 @@ public class Render {
             }
             int nX = _imageWriter.getNx();
             int nY = _imageWriter.getNy();
-            for (int i = 0; i < nY; i++) {
-                for (int j = 0; j < nX; j++) {
+            if(FlagDOP==true) {
+                for (int i = 0; i < nY; i++) {
+                    for (int j = 0; j < nX; j++) {
 
-                    List<Ray> rayList = _camera.constructRaysThroughPixel(nX, nY, j, i);
-                    Color temp =_rayTracerBase.traceRays(rayList);
-                    _imageWriter.writePixel(j, i, temp);
+                        List<Ray> rayList = _camera.constructRaysThroughPixel(nX, nY, j, i);
+                        Color temp = _rayTracerBase.traceRays(rayList);
+                        _imageWriter.writePixel(j, i, temp);
+                    }
+                }
+            }
+            else{
+
+                for (int i = 0; i < nY; i++) {
+                    for (int j = 0; j < nX; j++) {
+
+                       Ray ray = _camera.constructRayThroughPixel(nX, nY, j, i);
+                        Color temp = _rayTracerBase.traceRay(ray);
+                        _imageWriter.writePixel(j, i, temp);
+                    }
                 }
             }
         }
