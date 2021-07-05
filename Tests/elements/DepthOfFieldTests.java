@@ -20,7 +20,7 @@ public class DepthOfFieldTests {
         Camera camera = new Camera(new Point3D(-120, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0))
                 .setDistance(1000)
                 .setViewPlaneSize(350, 350)
-       .setDepthOfFiled(15, 0.05, 200);
+       .setDepthOfFiled(50, 0.05, 200);
         scene.setBackground(new Color(java.awt.Color.BLACK));
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0));
 
@@ -65,7 +65,8 @@ public class DepthOfFieldTests {
                 .setImageWriter(new ImageWriter("DepthOfFieldProject", 500, 500)) //
                 .setCamera(camera) //
                 .setRayTracer(new BasicRayTracer(scene))
-                .setFlagDOP(true);
+                .setFlagDOF(true);
+        render1.setMultithreading(3).setDebugPrint();
         render1.renderImage();
         render1.writeToImage();
 
@@ -74,6 +75,7 @@ public class DepthOfFieldTests {
                 .setImageWriter(new ImageWriter("withoutDepthOfFieldProject", 500, 500)) //
                 .setCamera(camera) //
                 .setRayTracer(new BasicRayTracer(scene));
+        render2.setMultithreading(3).setDebugPrint();
         render2.renderImage();
         render2.writeToImage();
 
