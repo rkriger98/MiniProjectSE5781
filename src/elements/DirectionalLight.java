@@ -22,8 +22,8 @@ public class DirectionalLight extends Light implements LightSource{
 
     /**
      * The get function to get the direction of the lighting The get function to get the point's color
-     * @param p
-     * @return color
+     * @param p-point
+     * @return intensity of the light
      */
     @Override
     public Color getIntensity(Point3D p) {
@@ -32,7 +32,7 @@ public class DirectionalLight extends Light implements LightSource{
 
     /**
      * The get function to get the direction of the lighting
-     * @param p
+     * @param p-point
      * @return direction
      */
     @Override
@@ -42,7 +42,7 @@ public class DirectionalLight extends Light implements LightSource{
 
     /**
      *
-     * @return
+     * @return the distance(Which is infinite)
      */
     @Override
     public double getDistance(Point3D point) {

@@ -12,13 +12,21 @@ import java.util.List;
 import static primitives.Ray.rayRandomBeam;
 import static primitives.Util.alignZero;
 
+/**
+ * class BasicRayTracer-responsible for coloring each pixel
+ * in the right color according to the object
+ */
 public class BasicRayTracer extends BaseRayTracer {
 
-
+    /**
+     * MAX_CALC_COLOR_LEVEL-Variable for limit recursion
+     * MIN_CALC_COLOR_K-Variable for limit recursion
+     * INITIAL_K-
+     */
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final double MIN_CALC_COLOR_K = 0.001;
     private static final double INITIAL_K = 1.0;
-    //private static final double MAX_DIAMETER_C
+
 
 
     public BasicRayTracer(Scene scene) {
@@ -31,7 +39,7 @@ public class BasicRayTracer extends BaseRayTracer {
      * Find the closest intersection point
      * Find the color of the intersection point (Ambient light)
      *
-     * @param ray
+     * @param ray-the ray of the specific pixel
      * @return color
      */
     @Override
@@ -48,7 +56,7 @@ public class BasicRayTracer extends BaseRayTracer {
 
     /**
      * Calculate the average of a color in a point
-     * @param rays
+     * @param rays-the beam of ray of the specific pixel
      * @return color 
      */
     @Override
@@ -66,8 +74,8 @@ public class BasicRayTracer extends BaseRayTracer {
     /**
      * call to the recursive func calcColor
      * returns the color
-     *
-     * @param
+     * @param closestPoint-The closest point to the head of the ray
+     * @param ray-the ray of the specific pixel
      * @return
      */
     private Color calcColor(GeoPoint closestPoint, Ray ray) {
@@ -79,9 +87,9 @@ public class BasicRayTracer extends BaseRayTracer {
     /**
      * Fill environmental lighting color of the scene by call to calcLocalEffects and calcGlobalEffects
      *
-     * @param intersection
-     * @param ray
-     * @param level
+     * @param intersection-The closest point to the head of the ray
+     * @param ray-the ray of the specific pixel
+     * @param level-the level of the recursion
      * @param k
      * @return
      */
@@ -98,8 +106,9 @@ public class BasicRayTracer extends BaseRayTracer {
      * calls the funcs calcDiffusive and calcSpecular
      * 𝒌𝑨 ∙ 𝑰𝑨 + 𝑰𝑬 +∑(𝒌𝑫∙|𝒍𝒊 ∙ 𝒏| + 𝒌𝑺 (∙ 𝒎𝒂𝒙 (𝟎, −𝒗 ∙ 𝒓))∙𝒏𝒔𝒉)∙ 𝑰𝑳𝒊 ∙𝑺𝒊
      *
-     * @param
-     * @param ray
+     * @param geopoint-The closest point to the head of the ray
+     * @param ray-the ray of the specific pixel
+     * @param k
      * @return
      */
     private Color calcLocalEffects(GeoPoint geopoint, Ray ray, double k) {
@@ -139,12 +148,12 @@ public class BasicRayTracer extends BaseRayTracer {
     /**
      * calculates the specular light on geometry
      *
-     * @param ks
-     * @param l
-     * @param n
-     * @param v
-     * @param nShininess
-     * @param lightIntensity
+     * @param ks-the coefficient of specular
+     * @param l-color's direction
+     * @param n-geometry's normal
+     * @param v-ray's direction
+     * @param nShininess-Shininess of the point
+     * @param lightIntensity-the intensity of the light at the point
      * @return
      */
     private Color calcSpecular(double ks, Vector l, Vector n, Vector v, double nShininess, Color lightIntensity) {
@@ -159,11 +168,11 @@ public class BasicRayTracer extends BaseRayTracer {
     /**
      * calculates the diffusion of the light on the touched area
      *
-     * @param kd
-     * @param l
-     * @param n
-     * @param lightIntensity
-     * @return
+     * @param kd-the coefficient of diffusive
+     * @param l-color's direction
+     * @param n-geometry's normal
+     * @param lightIntensity-the intensity of the light at the point
+     * @return the color
      */
     private Color calcDiffusive(double kd, Vector l, Vector n, Color lightIntensity) {
         double ln = Math.abs(l.dotProduct(n));
@@ -174,11 +183,11 @@ public class BasicRayTracer extends BaseRayTracer {
     /**
      * Calculate shadow at point by by finding all the point that this ray meets in the scene,
      * and if there are no points then there is a shadow
-     *
-     * @param l
-     * @param n
-     * @param geopoint
-     * @return
+     *@param light-the light source of the scene
+     * @param l-color's direction
+     * @param n-geometry's normal
+     * @param geopoint-The closest point to the head of the ray
+     * @return true or false if there is a shadow
      */
     private boolean unshaded1(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
         Vector lightDirection = l.scale(-1); // from point to light source
@@ -199,11 +208,12 @@ public class BasicRayTracer extends BaseRayTracer {
     }
 
     /**
-     * @param light
-     * @param l
-     * @param n
-     * @param geopoint
-     * @return
+     * Calculate shadow at point
+     * @param light-the light source of the scene
+     * @param l-color's direction
+     * @param n-geometry's normal
+     * @param geopoint-the closest point to the head of the ray
+     * @return  true or false if there is a shadow
      */
     private boolean unshaded2(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
         Vector lightDirection = l.scale(-1); // from point to light source
@@ -221,11 +231,11 @@ public class BasicRayTracer extends BaseRayTracer {
      * Calculate the  Reflection and transparency by calling for funcs constructReflectedRay and  constructRefractedRay
      * 𝒌𝑹 ∙ 𝑰𝑹 + 𝒌𝑻 ∙𝑰𝑻
      *
-     * @param gp
-     * @param v
-     * @param level
+     * @param gp-he closest point to the head of the ray
+     * @param v-ray's direction
+     * @param level-the level of the recursion
      * @param k
-     * @return
+     * @return color
      */
 
     private Color calcGlobalEffects(GeoPoint gp, Vector v, int level, double k) {
@@ -245,8 +255,8 @@ public class BasicRayTracer extends BaseRayTracer {
     /**
      * called by calcGlobalEffect for Calculating the Reflection and transparency
      *
-     * @param ray
-     * @param level
+     * @param ray-refraction ray
+     * @param level-the level of the recursion
      * @param kx
      * @param kkx
      * @return
@@ -260,9 +270,9 @@ public class BasicRayTracer extends BaseRayTracer {
     /**
      * constructs the refraction ray
      *
-     * @param point
-     * @param v
-     * @param n
+     * @param point-the closest point to the head of the ray
+     * @param v-ray's direction
+     * @param n-geometry's normal
      * @return ray
      */
     private Ray constructRefractedRay(Point3D point, Vector v, Vector n) {
@@ -272,11 +282,10 @@ public class BasicRayTracer extends BaseRayTracer {
     /**
      * Calculation of a reflected ray
      * 𝒓 = 𝒗 − 𝟐 ∙ (𝒗 ∙ 𝒏 )∙𝒏
-     *
-     * @param point
-     * @param v
-     * @param n
-     * @return
+     * @param point-the closest point to the head of the ray
+     * @param v-ray's direction
+     * @param n-geometry's normal
+     * @return ray
      */
     private Ray constructReflectedRay(Point3D point, Vector v, Vector n) {
 
@@ -289,7 +298,7 @@ public class BasicRayTracer extends BaseRayTracer {
     /**
      * finding the intersection that this ray meets in the scene
      *
-     * @param ray
+     * @param ray-the ray of the specific pixel
      * @return GeoPoint
      */
     private GeoPoint findClosestIntersection(Ray ray) {
@@ -299,12 +308,11 @@ public class BasicRayTracer extends BaseRayTracer {
 
     /**
      * Calculate the shadowing
-     *
-     * @param light
-     * @param l
-     * @param n
-     * @param geopoint
-     * @return
+     * @param light-the light source of the scene
+     * @param l-color's direction
+     * @param n-geometry's normal
+     * @param geopoint-the closest point to the head of the ray
+     * @return Shadow coefficient
      */
     private double transparency(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
         Vector lightDirection = l.scale(-1); // from point to light source

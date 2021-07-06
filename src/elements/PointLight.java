@@ -5,11 +5,14 @@ import primitives.Point3D;
 import primitives.Vector;
 
 /**
- * kC-The fixed lighting coefficient
- * KL-Linear lighting coefficient
- * KQ-The square light coefficient
+ * class PointLight - Point Light lighting the objects
  */
 public class PointLight extends Light implements LightSource{
+    /**
+     * kC-The fixed lighting coefficient
+     * KL-Linear lighting coefficient
+     * KQ-The square light coefficient
+     */
     private final Point3D _position;
     private double _Kc =1;
     private double _Kl =0;
@@ -34,10 +37,6 @@ public class PointLight extends Light implements LightSource{
        double d=_position.distance(p);
         double attenuation=1d/(_Kc + _Kl *d+ _Kq *d*d);
         return _intensity.scale(attenuation);
-        /*double d = getDistance(p);
-        double dsquared = d*d;
-
-        return (_intensity.reduce(_Kc + _Kl *d+ _Kq * dsquared));*/
     }
 
     /**

@@ -18,10 +18,15 @@ public interface LightSource  {
     /**
      * The get function to get the direction's color
      * @param p
-     * @return direction
+     * @return direction's color
      */
     public Vector getL(Point3D p);
 
+    /**
+     *
+     * @param p
+     * @return the distance
+     */
     public double getDistance(Point3D p);
 
 }

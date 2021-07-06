@@ -9,10 +9,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * class scene
+ * class scene- represents the geometries, angle, shadow and more
  */
 public class Scene {
 
+    /**
+     * name- scene name
+     * background- scene background color
+     * ambientLight- scene ambientLight
+     * geometries- list of geometry shapes
+     * lights- list of the Light Sources
+     */
     private final String _name;
     public Color background=Color.BLACK;;
     public AmbientLight ambientLight=new AmbientLight(Color.BLACK,0);
@@ -30,9 +37,9 @@ public class Scene {
     }
 
     /**
-     * chaining methods
-     * @param background
-     * @return
+     * builders
+     * @param background and ambientLight and geometries and lights
+     * @return Scene
      */
     public Scene setBackground(Color background) {
         this.background = background;

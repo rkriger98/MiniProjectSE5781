@@ -34,8 +34,8 @@ public class Camera {
     /**
      *
      * @param p0 location of the camera
-     * @param vUp y
-     * @param vTo z
+     * @param vUp The opposite axis to the y-axis
+     * @param vTo The axis exiting the camera towards the scene
      */
     public Camera(Point3D p0, Vector vTo,  Vector vUp) {
         _p0 = p0;
@@ -49,7 +49,7 @@ public class Camera {
 
     /**
      * getters
-     * @return vUp, vTo, vRight, Aperture, NumOfRays, FocalDistance
+     * @return vUp, vTo, vRight, Aperture, NumOfRays, FocalDistance,width,height,_distance
      */
     public Vector getvUp() {
         return _vUp;
@@ -89,9 +89,9 @@ public class Camera {
 
     /**
      * borrowing from Builder pattern
-     * @param width
-     * @param height
-     * @return
+     * @param width of the viewPlane
+     * @param height of the viewPlane
+     * @return Camera
      */
     public Camera setViewPlaneSize(double width, double height){
         _width=width;
@@ -99,15 +99,17 @@ public class Camera {
         return this;
     }
 
+    /**
+     *
+     * @param distance from the viewPlane
+     * @return Camera
+     */
     public Camera setDistance(double distance){
         _distance=distance;
         return this;
     }
 
     /**
-     * setter of Depth of filed. if Depth of filed function is called the camera will be focused for a specific distance.
-     * if Depth of filed will not be called the camera will be focused on the whole scene equally.
-     *
      * @param focalDistance - the distance of the  focus.
      * @param aperture      - the radius of the aperture.
      * @param numOfRays     - number of rays that will be in the beam from every pixels area (in addition to the original ray).
@@ -121,10 +123,10 @@ public class Camera {
 
     /**
      * Constructing a ray through a pixel
-     * @param nX
-     * @param nY
-     * @param j
-     * @param i
+     * @param nX-number of cells left to right
+     * @param nY-number of cells up to down
+     * @param j-index of width cell
+     * @param i-index of height cell
      * @return the ray
      */
     public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
@@ -172,8 +174,5 @@ public class Camera {
         result.add(new Ray(pij, ray.getDir()));
         return result;
     }
-
-
-
 
 }

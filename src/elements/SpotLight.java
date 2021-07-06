@@ -6,6 +6,9 @@ import primitives.Vector;
 
 import static primitives.Util.isZero;
 
+/**
+ * class SpotLight - Spot light lighting the objects
+ */
 public class SpotLight extends PointLight{
     private final Vector _direction;
     /**

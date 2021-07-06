@@ -20,7 +20,7 @@ public class DepthOfFieldTests {
         Camera camera = new Camera(new Point3D(-120, 0, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0))
                 .setDistance(1000)
                 .setViewPlaneSize(350, 350)
-       .setDepthOfFiled(50, 0.05, 200);
+       .setDepthOfFiled(50, 0.15, 200);
         scene.setBackground(new Color(java.awt.Color.BLACK));
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0));
 
