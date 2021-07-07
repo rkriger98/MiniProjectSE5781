@@ -76,7 +76,7 @@ public class BasicRayTracer extends BaseRayTracer {
      * returns the color
      * @param closestPoint-The closest point to the head of the ray
      * @param ray-the ray of the specific pixel
-     * @return
+     * @return color
      */
     private Color calcColor(GeoPoint closestPoint, Ray ray) {
         return calcColor(closestPoint, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K)

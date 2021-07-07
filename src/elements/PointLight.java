@@ -52,7 +52,7 @@ public class PointLight extends Light implements LightSource{
     /**
      *
      * @param p
-     * @return
+     * @return distance
      */
     @Override
     public double getDistance(Point3D p) {
