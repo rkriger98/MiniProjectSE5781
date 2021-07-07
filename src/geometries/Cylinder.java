@@ -6,9 +6,21 @@ import primitives.Vector;
 
 import java.util.List;
 
+/**
+ * Cylinder class represents a cylinder in 3D Cartesian coordinate system
+ * extends the Tube class
+ */
+
 public class Cylinder extends Tube{
     double _height;
 
+    /**
+     * Cylinder c-tor that gets two numbers and a ray
+     *
+     * @param radius
+     * @param axisRay
+     * @param height
+     */
     public Cylinder(double radius, Ray axisRay, double height) {
         super(radius, axisRay);
         _height = height;
@@ -39,6 +51,11 @@ public class Cylinder extends Tube{
     }
 
 
+    /**
+     * override findIntersections method
+     * @param ray
+     * @return list of intersection points with the ray
+     */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
         return super.findIntersections(ray);

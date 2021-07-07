@@ -15,9 +15,6 @@ public class Vector {
 
         if (head.equals(PointZERO)) {
             throw new IllegalArgumentException("head cannot be Point(0,0,0)");
-          //
-
-
         }
         _head = head;
     }
@@ -144,6 +141,12 @@ public class Vector {
                 (this._head._z.coord) / length);
     }
 
+    /**
+     * override func checks if two vectors are equal
+     *
+     * @param o
+     * @return true if its equal
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -156,7 +159,5 @@ public class Vector {
     public int hashCode() {
         return Objects.hash(_head);
     }
-
-
 
 }

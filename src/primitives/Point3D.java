@@ -3,20 +3,24 @@ package primitives;
 import java.util.Objects;
 
 /**
- * basic geometric object for 3D point
+ * class Point3D is the basic class representing a point for Cartesian
+ * coordinate system.
  */
 public class Point3D {
     /**
-     * //TODO hearot
+     * Points in 3D space according to the axes
      */
     final Coordinate _x;
     final Coordinate _y;
     final Coordinate _z;
 
+    /**
+     * static filed to get the "zero point"
+     */
     public static Point3D PointZERO = new Point3D(0, 0, 0);
 
     /**
-     * c-tor
+     * c-tor of point3D class that gets 3 coordinates
      *
      * @param x coordinate for x axis
      * @param y coordinate for y axis
@@ -41,7 +45,11 @@ public class Point3D {
     }
 
 
-
+    /**
+     * Checks if two points are equal
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

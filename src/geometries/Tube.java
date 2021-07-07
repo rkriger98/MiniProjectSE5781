@@ -8,10 +8,22 @@ import java.util.List;
 
 import static primitives.Util.isZero;
 
+/**
+ * Tube class represents a tube in 3D Cartesian coordinate system
+ * extends RadialGeometry
+ */
 public class Tube extends RadialGeometry {
 
+    /**
+     *  represents the Tube height
+     */
     final Ray _axisRay;
 
+    /**
+     *  tube c-tor that gets a radius and a ray
+     * @param radius the tube radius (RadialGeometry)
+     * @param axisRay the tube ray
+     */
     public Tube(double radius,Ray axisRay) {
         super(radius);
         _axisRay = axisRay;
@@ -19,8 +31,8 @@ public class Tube extends RadialGeometry {
 
     /**
      * override func get normal
-     * @param p point "looking" at tube
-     * @return null
+     * @param P point "looking" at tube
+     * @return
      */
     @Override
     public Vector getNormal(Point3D P) {
@@ -43,6 +55,12 @@ public class Tube extends RadialGeometry {
         return n.normalize();
     }
 
+    /**
+     * override findGeoIntersections func
+     * @param ray
+     * @param maxDis
+     * @return
+     */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray,double maxDis) {
         return null;

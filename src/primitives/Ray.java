@@ -7,16 +7,26 @@ import java.util.List;
 
 import static primitives.Util.isZero;
 
-
+/**
+ * class Ray is the basic class representing a ray for Cartesian
+ * coordinate system.
+ */
 public class Ray {
+    /**
+     * DELTA- represents a small move of rays point
+     */
     private static final double DELTA = 0.1;
 
+    /*
+     * _p0 begging point
+     * _dir direction
+     */
     private final Point3D _p0;
     private final Vector _dir;
 
 
     /**
-     * c-tor
+     * ray class c-tor
      *
      * @param p0  point3d
      * @param dir vector
@@ -26,6 +36,14 @@ public class Ray {
         _dir = dir.normalized();
     }
 
+    /**
+     * Ray c-tor receives a point and a vector and a normal vector
+     * moves of rays point on normal vector by DELTA
+     *
+     * @param point
+     * @param dir
+     * @param n
+     */
     public Ray(Point3D point, Vector dir, Vector n) {
         Vector delta = n.scale(n.dotProduct(dir) > 0 ? DELTA : -DELTA);
         Point3D p = point.add(delta);
@@ -34,8 +52,8 @@ public class Ray {
 
     }
 
-
     /**
+     * getter
      * @return point po
      */
     public Point3D getP0() {
@@ -43,6 +61,7 @@ public class Ray {
     }
 
     /**
+     * getter
      * @return vector Direction
      */
     public Vector getDir() {
@@ -60,6 +79,11 @@ public class Ray {
         return _p0.add(_dir.scale(delta));
     }
 
+    /**
+     *
+     * @param points
+     * @return the closest geoPoint to the point _p0
+     */
     public GeoPoint findClosestGeoPoint(List<GeoPoint> points) {
         GeoPoint minPoint = null;
         if (points == null) {
@@ -77,8 +101,8 @@ public class Ray {
     }
 
     /**
-     * @param points
-     * @return the closest point to _p0
+     * @param points intersection points with the ray
+     * @return the closest point to the point _p0
      */
     public Point3D findClosestPoint(List<Point3D> points) {
         Point3D minPoint = null;
@@ -123,8 +147,10 @@ public class Ray {
 
 
     /**
+     * override func checks if two rays are equal
+     *
      * @param o
-     * @return true if its equals
+     * @return true if its equal
      */
     @Override
     public boolean equals(Object o) {
@@ -132,16 +158,5 @@ public class Ray {
         if (o == null || getClass() != o.getClass()) return false;
         Ray ray = (Ray) o;
         return _p0.equals(ray._p0) && _dir.equals(ray._dir);
-    }
-
-    /**
-     * @return ray toString
-     */
-    @Override
-    public String toString() {
-        return "Ray{" +
-                "p0=" + _p0 +
-                ", dir=" + _dir +
-                '}';
     }
 }

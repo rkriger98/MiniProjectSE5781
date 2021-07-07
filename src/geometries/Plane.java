@@ -10,10 +10,23 @@ import java.util.Objects;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
+/**
+ * Plane class represents a plane in 3D Cartesian coordinate system
+ */
 public class Plane extends Geometry {
+
+    /**
+     * point represents a point on the plane
+     * normal represents the normal vector to the plane
+     */
     final Point3D _q0;
     final Vector _normal;
 
+    /**
+     * c-tor of plane class, gets a point and normal vector
+     * @param p0 the point on the plan
+     * @param normal the normal vector
+     */
     public Plane(Point3D p0, Vector normal) {
         _q0 = p0;
         _normal = normal.normalized();
@@ -43,15 +56,18 @@ public class Plane extends Geometry {
     }
 
 
-    //getters
+    /**
+     * getter
+     * @return the point on the plane
+     */
     public Point3D getQ0() {
         return _q0;
     }
 
 
     /**
-     * @deprecated  use {@link #getNormal(Point3D)} with null as parameter.
-     * @return normal
+     * getter
+     * @return the normal
      */
     @Deprecated
     public Vector getNormal() {
@@ -59,9 +75,9 @@ public class Plane extends Geometry {
     }
 
     /**
-     *
+     * getter
      * @param point3D dummy point not use for flat geometries
-     *  should be assigned null value
+     * should be assigned null value
      * @return normal to the plane
      */
     @Override
@@ -69,6 +85,13 @@ public class Plane extends Geometry {
         return _normal;
     }
 
+    /**
+     * override function that gets a ray and checks the Intersections of the ray with the plan or plans
+     *
+     * @param ray- a ray from @primitives.Ray
+     * @return a List of 3D Points with the values of all the Intersections points of the ray and the plan or plans.
+     * if there are no Intersections points, the function returns null
+     */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray,double maxDis) {
         try {
@@ -128,6 +151,11 @@ public class Plane extends Geometry {
                 '}';
     }
 
+    /**
+     * Checks if two plans are equal
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -10,9 +10,15 @@ import static primitives.Point3D.PointZERO;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
-
+/**
+ * Sphere class represents a sphere in 3D Cartesian coordinate system
+ * extends the RadialGeometry class
+ */
 public class Sphere extends RadialGeometry {
 
+    /**
+     * represents the sphere center point
+     */
     final protected Point3D _center;
 
     public Point3D getCenter() {
@@ -20,10 +26,10 @@ public class Sphere extends RadialGeometry {
     }
 
     /**
-     * c-tor
+     * Sphere c-tor that gets a point and a radius
      *
-     * @param center
-     * @param radius
+     * @param center the center point
+     * @param radius the radius of the ray
      */
     public Sphere(double radius, Point3D center) {
         super(radius);
@@ -33,8 +39,8 @@ public class Sphere extends RadialGeometry {
     /**
      * override func get normal
      *
-     * @param p
-     * @return normal to the Sphere
+     * @param p point on the sphere
+     * @return the normal vector of the Sphere
      */
     @Override
     public Vector getNormal(Point3D p) {
@@ -46,63 +52,15 @@ public class Sphere extends RadialGeometry {
     }
 
     /**
-     * @return tostring of sphere
+     * override function that gets a ray and checks the Intersections of the ray with the sphere or spheres
+     *
+     * @param ray- a ray from @primitives.Ray
+     * @return a List of 3D Points with the values of all the Intersections points of the ray and the sphere or spheres.
+     * if there are no Intersections points, the function returns null
      */
-
-    @Override
-    public String toString() {
-        return "Sphere{" +
-                "_radius=" + _radius +
-                ", _center=" + _center +
-                '}';
-    }
-
-
-    @Override
-   /* public List<GeoPoint> findGeoIntersections(Ray ray, double maxDis) {
-        Point3D P0 = ray.getP0();
-        Vector v = ray.getDir();
-
-        if (_center.equals(P0)) {
-            throw new IllegalArgumentException("ray origin cannot be at sphere's center");
-        }
-
-        Vector u = _center.subtract(P0);
-
-        double tm = alignZero(u.dotProduct(v));
-        double d = alignZero(Math.sqrt(u.lengthSquared() - tm * tm));
-
-        if (d > _radius) {
-            return null;
-        }
-        double th = alignZero(Math.sqrt(_radius * _radius - d * d));
-
-        double t1 = alignZero(tm - th);
-        double t2 = alignZero(tm + th);
-        if (alignZero(t1) < 0 && alignZero(t2) < 0) {
-            return null;
-        }
-
-
-        if (alignZero(t1 - maxDis) <= 0 && alignZero(t2 - maxDis) <= 0) {
-            Point3D P1 = P0.add(v.scale(t1));
-            Point3D P2 = P0.add(v.scale(t2));
-
-            return List.of(new GeoPoint(this, P1), new GeoPoint(this, P2));
-        } else if (alignZero(t1 - maxDis) <= 0) {
-            Point3D P1 = P0.add(v.scale(t1));
-            return List.of(new GeoPoint(this, P1));
-        } else if (alignZero(t2 - maxDis) <= 0) {
-            Point3D P2 = P0.add(v.scale(t2));
-            return List.of(new GeoPoint(this, P2));
-        }
-        return null;
-    }*/
     public List<GeoPoint> findGeoIntersections(Ray ray, double maxDis) {
 
         try {
-
-
             Point3D P0 = ray.getP0();
             Vector v = ray.getDir();
 
@@ -125,7 +83,6 @@ public class Sphere extends RadialGeometry {
             if (t1 <= 0 && t2 <= 0) {
                 return null;
             }
-
 
             Vector vt1 = v.scale(t1);
             Vector vt2 = v.scale(t2);
@@ -163,4 +120,5 @@ public class Sphere extends RadialGeometry {
         }
         return null;
     }
+
 }
